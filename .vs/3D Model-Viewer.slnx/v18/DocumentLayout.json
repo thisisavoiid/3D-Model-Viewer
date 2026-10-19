@@ -5,6 +5,9 @@
     {
       "AbsoluteMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|solutionrelative:3D Model-Viewer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|C:\\OPENGL\\INCLUDE\\GLAD\\GLAD.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +17,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,13 +37,25 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "glad.h",
+              "DocumentMoniker": "C:\\OpenGL\\include\\glad\\glad.h",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\OpenGL\\include\\glad\\glad.h",
+              "ToolTip": "C:\\OpenGL\\include\\glad\\glad.h",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\OpenGL\\include\\glad\\glad.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-10-19T11:39:52.394Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "3D Model-Viewer.cpp",
               "DocumentMoniker": "C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp",
               "RelativeDocumentMoniker": "3D Model-Viewer.cpp",
               "ToolTip": "C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp",
               "RelativeToolTip": "3D Model-Viewer.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-10-19T10:32:38.71Z",
               "EditorCaption": ""

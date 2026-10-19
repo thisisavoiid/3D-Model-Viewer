@@ -1,0 +1,68 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|solutionrelative:3D Model-Viewer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34ADA411-7A69-4283-BDBF-499175B96768}|3D Model-Viewer.vcxproj|C:\\OPENGL\\INCLUDE\\GLAD\\GLAD.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "glad.h",
+              "DocumentMoniker": "C:\\OpenGL\\include\\glad\\glad.h",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\OpenGL\\include\\glad\\glad.h",
+              "ToolTip": "C:\\OpenGL\\include\\glad\\glad.h",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\OpenGL\\include\\glad\\glad.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-10-19T11:39:52.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "3D Model-Viewer.cpp",
+              "DocumentMoniker": "C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp",
+              "RelativeDocumentMoniker": "3D Model-Viewer.cpp",
+              "ToolTip": "C:\\Users\\huber\\Documents\\Programmieren\\C\u002B\u002B\\Hauptprojekte\\3D Model-Viewer\\3D Model-Viewer.cpp",
+              "RelativeToolTip": "3D Model-Viewer.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-10-19T10:32:38.71Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
