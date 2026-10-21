@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "3D Model-Viewer\\x64\\Debug\\window.obj",
+            "outputs": [
+                "3D Model-Viewer\\x64\\Debug\\window.cpp.obj.dt.module.json",
+                "3D Model-Viewer\\x64\\Debug\\window.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
