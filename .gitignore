@@ -1,37 +1,54 @@
-# Visual Studio user and IDE files
+# Visual Studio IDE/user-specific files
 .vs/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+*.VC.opendb
+*.opendb
+*.sdf
+*.opensdf
 
-# Build output
+# Build output (Visual Studio, CMake, common build systems)
 [Bb]in/
 [Oo]bj/
+[Bb]uild/
+[Bb]uild-*/
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
 out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
 
-# Visual Studio build and IntelliSense files
+# Visual Studio / MSBuild generated files
 *.tlog/
+*.lastbuildstate
+*.recipe
+*.VC.db-shm
+*.VC.db-wal
 *.pdb
 *.idb
 *.ipch
 *.ilk
 *.iobj
 *.ipdb
-*.VC.db
-*.VC.VC.opendb
-*.recipe
-*.lastbuildstate
+*.pch
+*.suo
 *.log
 
-# Compiled files
+# Compiled binaries and object files
 *.obj
 *.o
 *.a
+*.lib
 *.la
 *.lai
 *.lo
@@ -42,13 +59,20 @@ out/
 *.exe
 *.out
 *.app
-*.d
+*.class
 *.gch
-*.pch
 *.mod
 *.smod
 
-# Generated Visual Studio/C++ files
+# Generated Visual Studio project files
+*.vcxproj.user
 *.vcxproj.filters.user
-*.VC.opendb
 
+# CMake presets: keep project-owned CMakePresets.json tracked.
+# Ignore only local user presets, if present.
+CMakeUserPresets.json
+
+# vcpkg: ignore installed dependencies and generated integration state,
+# but keep vcpkg.json and vcpkg-configuration.json tracked.
+/vcpkg_installed/
+vcpkg_installed/
