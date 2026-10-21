@@ -1,2 +1,0 @@
-﻿  main.cpp
-C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\src\main.cpp(1,10): error C1083: Datei (Include) kann nicht geöffnet werden: "glad/glad.h": No such file or directory

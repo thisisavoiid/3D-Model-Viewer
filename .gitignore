@@ -1,32 +1,54 @@
-# Prerequisites
-*.d
+# Visual Studio user and IDE files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+out/
+
+# Visual Studio build and IntelliSense files
+*.tlog/
+*.pdb
+*.idb
+*.ipch
+*.ilk
+*.iobj
+*.ipdb
+*.VC.db
+*.VC.VC.opendb
+*.recipe
+*.lastbuildstate
+*.log
+
+# Compiled files
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
+*.o
+*.a
+*.la
+*.lai
+*.lo
+*.slo
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
 *.exe
 *.out
 *.app
+*.d
+*.gch
+*.pch
+*.mod
+*.smod
+
+# Generated Visual Studio/C++ files
+*.vcxproj.filters.user
+*.VC.opendb
+

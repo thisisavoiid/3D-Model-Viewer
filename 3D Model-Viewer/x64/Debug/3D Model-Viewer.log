@@ -1,5 +1,0 @@
-﻿  main.cpp
-  window.cpp
-C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\window.cpp(46,11): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-  Code wird generiert...
-  3D Model-Viewer.vcxproj -> C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\x64\Debug\3D Model-Viewer.exe

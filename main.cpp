@@ -4,7 +4,7 @@
 #include "window.hpp"
 
 int main() {
-    Window* window = new Window();
-    delete(window);
+    Window window;
+    window.run();
     return 0;
 }
