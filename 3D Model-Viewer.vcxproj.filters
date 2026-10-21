@@ -39,7 +39,4 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include=".github\copilot-instructions.md" />
-  </ItemGroup>
 </Project>
