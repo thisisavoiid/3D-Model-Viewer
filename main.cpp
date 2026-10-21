@@ -1,5 +1,5 @@
-#include <glad/glad.h>       // 1
-#include <GLFW/glfw3.h>      // 2
+#include <glad/glad.h>     
+#include <GLFW/glfw3.h>    
 #include <iostream>
 #include "window.hpp"
 
