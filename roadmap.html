@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Model Viewer – Roadmap</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(20, 29, 53, .82);
+      --panel-strong: #18233f;
+      --line: rgba(255,255,255,.1);
+      --text: #eef3ff;
+      --muted: #9aa8c7;
+      --blue: #69a8ff;
+      --cyan: #55e6d0;
+      --violet: #a78bfa;
+      --orange: #ffb86b;
+      --danger: #ff7e9d;
+      --shadow: 0 24px 70px rgba(0,0,0,.3);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(105,168,255,.18), transparent 32rem),
+        radial-gradient(circle at 90% 12%, rgba(167,139,250,.15), transparent 28rem),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 70px; }
+    .hero { display: flex; justify-content: space-between; align-items: end; gap: 28px; margin-bottom: 28px; }
+    .eyebrow { color: var(--cyan); font-size: .78rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 8px 0 10px; font-size: clamp(2.1rem, 5vw, 4.5rem); line-height: .98; letter-spacing: -.06em; }
+    .hero p { max-width: 680px; margin: 0; color: var(--muted); line-height: 1.6; }
+    .deadline { min-width: 190px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); box-shadow: var(--shadow); }
+    .deadline strong { display: block; margin-top: 5px; font-size: 1.55rem; }
+
+    .dashboard { display: grid; grid-template-columns: 1.35fr .85fr; gap: 18px; margin-bottom: 28px; }
+    .card { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
+    .progress-card { padding: 24px; }
+    .card-top { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+    .label { color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+    .big-number { margin: 5px 0 0; font-size: 2.8rem; font-weight: 800; letter-spacing: -.06em; }
+    .progress-track { height: 12px; margin: 24px 0 12px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.08); }
+    .progress-fill { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); transition: width .3s ease; }
+    .progress-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: .9rem; }
+
+    .timer { padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+    .timer-display { font-variant-numeric: tabular-nums; font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -.07em; }
+    .timer-status { min-height: 20px; color: var(--muted); font-size: .9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .timer-actions, .toolbar { display: flex; flex-wrap: wrap; gap: 9px; }
+    .btn { border: 1px solid var(--line); border-radius: 11px; padding: 10px 14px; color: var(--text); background: rgba(255,255,255,.06); transition: .2s ease; }
+    .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.12); }
+    .btn.primary { border-color: transparent; color: #07101d; font-weight: 800; background: var(--cyan); }
+    .btn.danger { color: #ffd7e1; }
+
+    .roadmap-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin: 30px 0 14px; }
+    h2 { margin: 0; font-size: 1.6rem; letter-spacing: -.04em; }
+    .filters { display: flex; gap: 8px; }
+    .filter { padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: transparent; }
+    .filter.active { color: var(--text); border-color: rgba(105,168,255,.55); background: rgba(105,168,255,.14); }
+    .day { margin: 14px 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: rgba(20,29,53,.68); }
+    .day.current { border-color: rgba(85,230,208,.58); box-shadow: 0 0 0 1px rgba(85,230,208,.1); }
+    .day-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 17px 20px; background: rgba(255,255,255,.035); }
+    .day-title { display: flex; align-items: center; gap: 12px; }
+    .date-badge { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; color: #07101d; font-weight: 900; background: linear-gradient(145deg, var(--blue), var(--cyan)); }
+    .day h3 { margin: 0; font-size: 1.05rem; }
+    .day-subtitle { margin-top: 4px; color: var(--muted); font-size: .85rem; }
+    .day-percent { color: var(--cyan); font-weight: 800; font-variant-numeric: tabular-nums; }
+    .tasks { padding: 8px 20px 13px; }
+    .task { display: grid; grid-template-columns: 24px 1fr auto; align-items: start; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.065); }
+    .task:last-child { border-bottom: 0; }
+    .task input { width: 19px; height: 19px; margin: 2px 0 0; accent-color: var(--cyan); }
+    .task label { cursor: pointer; line-height: 1.4; }
+    .task.done label { color: var(--muted); text-decoration: line-through; }
+    .task small { display: block; margin-top: 4px; color: var(--muted); font-size: .8rem; }
+    .tag { align-self: center; padding: 5px 8px; border-radius: 8px; color: var(--muted); background: rgba(255,255,255,.07); font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+    .tag.must { color: #bce8ff; background: rgba(105,168,255,.14); }
+    .tag.optional { color: #ffd39f; background: rgba(255,184,107,.13); }
+    .tag.last { color: #e8d9ff; background: rgba(167,139,250,.15); }
+    .empty { padding: 28px; color: var(--muted); text-align: center; }
+    footer { margin-top: 30px; color: var(--muted); font-size: .82rem; text-align: center; }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 22px, 600px); padding-top: 25px; }
+      .hero, .roadmap-head { align-items: stretch; flex-direction: column; }
+      .dashboard { grid-template-columns: 1fr; }
+      .deadline { min-width: 0; }
+      .day-header { align-items: flex-start; }
+      .task { grid-template-columns: 24px 1fr; }
+      .task .tag { grid-column: 2; justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">3D Model Viewer · Fokuswoche</div>
+        <h1>Vom Dreieck zur Szene.</h1>
+        <p>Eine klare, machbare Roadmap für Kamera, Projektion, Shader und Model-Import. Hake Aufgaben ab und arbeite in fokussierten Sessions.</p>
+      </div>
+      <div class="deadline"><span class="label">Deadline</span><strong>05.11.</strong><span class="day-subtitle">Abgabe vorbereiten</span></div>
+    </header>
+
+    <section class="dashboard">
+      <div class="card progress-card">
+        <div class="card-top"><div><div class="label">Gesamtfortschritt</div><div class="big-number" id="progressText">0%</div></div><div class="label" id="taskCount">0 / 0 Tasks</div></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-meta"><span id="nextTask">Nächster Schritt wird geladen …</span><span id="todayLabel"></span></div>
+      </div>
+      <div class="card timer">
+        <div><div class="label">Fokus-Timer</div><div class="timer-display" id="timerDisplay">25:00</div><div class="timer-status" id="timerStatus">Wähle eine Task oder starte eine Session.</div></div>
+        <div class="timer-actions"><button class="btn primary" id="timerToggle">Start</button><button class="btn" id="timerReset">Reset</button><button class="btn" id="timerMode">25 / 5</button></div>
+      </div>
+    </section>
+
+    <div class="roadmap-head"><div><div class="label">Tagesplan</div><h2>Schritt für Schritt bis zur Abgabe</h2></div><div class="filters"><button class="filter active" data-filter="all">Alle</button><button class="filter" data-filter="must">Priorität</button><button class="filter" data-filter="open">Offen</button></div></div>
+    <section id="roadmap"></section>
+    <footer>Fortschritt wird automatisch in diesem Browser gespeichert. Änderungen am Projektcode passieren nicht durch diese Datei.</footer>
+  </main>
+
+  <script>
+    const days = [
+      { date: '22.10.', title: '3D-Basis und Würfel', tasks: [
+        ['Würfelgeometrie mit Positionen definieren', 'must', '36 Vertices oder Indexed Rendering vorbereiten'],
+        ['VAO/VBO für den Würfel aufbauen', 'must', 'Vertexattribute sauber dokumentieren'],
+        ['Depth Testing aktivieren', 'must', 'GL_DEPTH_TEST und Depth-Buffer-Clear'],
+        ['Model-, View- und Projection-Matrix als Uniforms setzen', 'must', 'GLM + MVP-Reihenfolge verstehen']
+      ]},
+      { date: '23.10.', title: 'Kamera-Grundlage', tasks: [
+        ['Camera-Struktur/Klasse anlegen', 'must', 'Position, Front, Up, Yaw, Pitch'],
+        ['View-Matrix mit glm::lookAt berechnen', 'must', 'Kamera auf den Würfel richten'],
+        ['Statische Kameraposition testen', 'must', 'Von vorne und von der Seite prüfen']
+      ]},
+      { date: '24.10.', title: 'WASD und Delta-Time', tasks: [
+        ['Delta-Time in der Renderloop berechnen', 'must', 'FPS-unabhängige Bewegung'],
+        ['WASD-Bewegung implementieren', 'must', 'Vorwärts, rückwärts, links, rechts'],
+        ['Vertikale Bewegung mit Q/E ergänzen', 'must', 'Free-Fly statt nur Bodenbewegung'],
+        ['Kamera hinter dem Würfel testen', 'must', 'Nicht versehentlich aus dem Sichtkegel fliegen']
+      ]},
+      { date: '25.10.', title: 'Mauskamera', tasks: [
+        ['Maus-Capture und erste Mausposition einrichten', 'must', 'Ersten Sprung beim Start verhindern'],
+        ['Yaw/Pitch aus Mausbewegung berechnen', 'must', 'Pitch auf -89 bis 89 Grad begrenzen'],
+        ['Front/Right/Up-Vektoren aktualisieren', 'must', 'Richtung normalisieren'],
+        ['Free-Fly-Kamera komplett testen', 'must', 'WASD + Maus gleichzeitig']
+      ]},
+      { date: '26.10.', title: 'Resize und Projektion', tasks: [
+        ['Framebuffer-Resize-Callback prüfen', 'must', 'glViewport aktualisieren'],
+        ['Aspect Ratio dynamisch berechnen', 'must', 'Keine Verzerrung bei Resize'],
+        ['FOV, Near und Far Plane testen', 'must', 'Perspektive bewusst verstehen']
+      ]},
+      { date: '27.10.', title: 'Aufräumen und Stabilisieren', tasks: [
+        ['Kamera aus Window-Code herauslösen', 'must', 'Window bleibt Orchestrator'],
+        ['Shader-Uniformnamen vereinheitlichen', 'must', 'model, view, projection'],
+        ['VAO/VBO und Fenster sauber freigeben', 'must', 'Keine Ressourcenleaks'],
+        ['Stabilen Commit erstellen', 'must', 'Checkpoint vor Lighting']
+      ]},
+      { date: '28.10.', title: 'Normalen und Licht', tasks: [
+        ['Würfel um Normalen erweitern', 'must', 'Pro Fläche korrekte Normale'],
+        ['Normal-Matrix im Vertexshader verwenden', 'must', 'Inverse-Transpose verstehen'],
+        ['Ambient- und Diffuse-Licht berechnen', 'must', 'dot(N, L) praktisch anwenden'],
+        ['Lichtposition als Uniform setzen', 'must', 'Helle und dunkle Flächen prüfen']
+      ]},
+      { date: '29.10.', title: 'Texturen und Pflicht-Meilenstein', tasks: [
+        ['UV-Koordinaten ergänzen', 'must', 'Vertexformat erweitern'],
+        ['Testtextur laden und samplen', 'must', 'Texture Unit + sampler2D'],
+        ['Pflicht-Meilenstein demonstrieren', 'must', 'Würfel, Projektion, Kamera, Licht, Textur'],
+        ['Backup/Checkpoint erstellen', 'must', 'Ab jetzt keine riskanten Änderungen ohne Commit']
+      ]},
+      { date: '30.10.', title: 'Cel Shading', tasks: [
+        ['Eigenen Cel-Fragmentshader schreiben', 'must', 'Diffuse Helligkeit quantisieren'],
+        ['2–4 Helligkeitsstufen abstimmen', 'must', 'Sichtbare Toon-Bänder'],
+        ['Normalen-Debugshader ergänzen', 'must', 'Normalen mit Farben visualisieren'],
+        ['Lit- und Cel-Ergebnis vergleichen', 'must', 'Shaderwissen dokumentieren']
+      ]},
+      { date: '31.10.', title: 'ImGui Shader-Auswahl', tasks: [
+        ['ImGui integrieren', 'must', 'Nur Debug-/Editor-Oberfläche'],
+        ['Zwischen Lit, Cel und Normals umschalten', 'must', 'Keine Renderlogik duplizieren'],
+        ['Licht und Cel-Schwellen editierbar machen', 'must', 'Shaderparameter live testen']
+      ]},
+      { date: '01.11.', title: 'Skybox oder Hintergrund', tasks: [
+        ['Cubemap/Skybox einschätzen', 'must', 'Nur umsetzen, wenn Texturen stabil sind'],
+        ['Skybox rendern oder einfachen Hintergrund fertigstellen', 'must', 'Pflichtanforderung absichern'],
+        ['Depth-Reihenfolge dokumentieren', 'must', 'Warum Skybox zuletzt/mit Sondermodus?']
+      ]},
+      { date: '02.11.', title: 'OBJ-Import', tasks: [
+        ['OBJ-Formatumfang festlegen', 'must', 'v, vt, vn, f'],
+        ['OBJ in eigene Vertexstruktur umwandeln', 'must', 'Getrennte OBJ-Indizes beachten'],
+        ['Ein Test-OBJ mit Lit-Shader rendern', 'must', 'Gleiche Mesh-Pipeline wie Würfel'],
+        ['Fehlerfälle behandeln', 'must', 'Datei, Indizes, fehlende Normalen']
+      ]},
+      { date: '03.11.', title: 'FBX nur bei stabilem Stand', tasks: [
+        ['Entscheidung: FBX wirklich noch nötig?', 'optional', 'Stabilität vor Featureumfang'],
+        ['Falls nötig: Assimp evaluieren', 'optional', 'Keine eigene FBX-Implementierung'],
+        ['Statisches FBX auf Mesh abbilden', 'optional', 'Animationen ausdrücklich auslassen']
+      ]},
+      { date: '04.11.', title: 'Gizmos als letzte Priorität', tasks: [
+        ['Objektauswahl per ImGui ermöglichen', 'last', 'Noch kein Mouse-Picking nötig'],
+        ['Translation/Rotation per Tastatur', 'last', 'Nur wenn alles davor funktioniert'],
+        ['Optionale X/Y/Z-Gizmoachsen zeichnen', 'last', 'Maus-Gizmos nur bei ausreichender Zeit']
+      ]},
+      { date: '05.11.', title: 'Abgabe und Clean Build', tasks: [
+        ['Clean Build aus dem Repository durchführen', 'must', 'Debug/Release und Shaderpfade prüfen'],
+        ['Pflichtfeatures demonstrieren', 'must', 'Kamera, Licht, Textur, Hintergrund'],
+        ['Cel-Shading-Umschaltung demonstrieren', 'must', 'ImGui und eigener GLSL-Code'],
+        ['Kurze technische Dokumentation fertigstellen', 'must', 'Koordinatenräume und Shaderformeln']
+      ]}
+    ];
+
+    const storageKey = 'model-viewer-roadmap-v1';
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    let activeFilter = 'all';
+    let selectedTask = '';
+    let remaining = 25 * 60;
+    let timerRunning = false;
+    let timerInterval = null;
+    let shortMode = false;
+
+    const roadmap = document.querySelector('#roadmap');
+    const progressText = document.querySelector('#progressText');
+    const progressFill = document.querySelector('#progressFill');
+    const taskCount = document.querySelector('#taskCount');
+    const nextTask = document.querySelector('#nextTask');
+    const todayLabel = document.querySelector('#todayLabel');
+    const timerDisplay = document.querySelector('#timerDisplay');
+    const timerStatus = document.querySelector('#timerStatus');
+    const timerToggle = document.querySelector('#timerToggle');
+
+    function allTasks() { return days.flatMap((day, dayIndex) => day.tasks.map((task, taskIndex) => ({ day, dayIndex, task, taskIndex, key: `${dayIndex}-${taskIndex}` }))); }
+    function isDone(key) { return saved[key] === true; }
+    function save() { localStorage.setItem(storageKey, JSON.stringify(saved)); }
+    function visible(item) {
+      if (activeFilter === 'must') return item.task[1] === 'must';
+      if (activeFilter === 'open') return !isDone(item.key);
+      return true;
+    }
+
+    function render() {
+      const items = allTasks();
+      const done = items.filter(item => isDone(item.key)).length;
+      const percent = Math.round(done / items.length * 100);
+      progressText.textContent = `${percent}%`;
+      progressFill.style.width = `${percent}%`;
+      taskCount.textContent = `${done} / ${items.length} Tasks`;
+      const upcoming = items.find(item => !isDone(item.key));
+      nextTask.textContent = upcoming ? `Nächster: ${upcoming.task[0]}` : 'Alle Tasks erledigt – stark!';
+      todayLabel.textContent = `${items.length - done} offen`;
+
+      roadmap.innerHTML = '';
+      days.forEach((day, dayIndex) => {
+        const dayItems = day.tasks.map((task, taskIndex) => ({ day, dayIndex, task, taskIndex, key: `${dayIndex}-${taskIndex}` })).filter(visible);
+        if (!dayItems.length) return;
+        const completed = day.tasks.filter((_, i) => isDone(`${dayIndex}-${i}`)).length;
+        const dayPercent = Math.round(completed / day.tasks.length * 100);
+        const section = document.createElement('article');
+        section.className = `day ${dayIndex === 0 ? 'current' : ''}`;
+        section.innerHTML = `<div class="day-header"><div class="day-title"><div class="date-badge">${day.date.split('.')[0]}</div><div><h3>${day.title}</h3><div class="day-subtitle">${day.date} · ${completed}/${day.tasks.length} erledigt</div></div></div><div class="day-percent">${dayPercent}%</div></div><div class="tasks"></div>`;
+        const tasks = section.querySelector('.tasks');
+        dayItems.forEach(item => {
+          const checked = isDone(item.key);
+          const row = document.createElement('div');
+          row.className = `task ${checked ? 'done' : ''}`;
+          row.innerHTML = `<input type="checkbox" id="task-${item.key}" ${checked ? 'checked' : ''}><label for="task-${item.key}">${item.task[0]}<small>${item.task[2]}</small></label><span class="tag ${item.task[1]}">${item.task[1] === 'must' ? 'Priorität' : item.task[1] === 'last' ? 'zuletzt' : 'optional'}</span>`;
+          row.querySelector('input').addEventListener('change', event => {
+            saved[item.key] = event.target.checked;
+            save();
+            render();
+          });
+          row.querySelector('label').addEventListener('click', () => {
+            selectedTask = item.task[0];
+            timerStatus.textContent = `Fokus: ${selectedTask}`;
+          });
+          tasks.appendChild(row);
+        });
+        roadmap.appendChild(section);
+      });
+      if (!roadmap.children.length) roadmap.innerHTML = '<div class="card empty">Keine Tasks für diesen Filter.</div>';
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(remaining / 60).toString().padStart(2, '0');
+      const seconds = (remaining % 60).toString().padStart(2, '0');
+      timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+    function stopTimer() { clearInterval(timerInterval); timerInterval = null; timerRunning = false; timerToggle.textContent = 'Start'; }
+    function startTimer() {
+      if (timerRunning) return;
+      timerRunning = true;
+      timerToggle.textContent = 'Pause';
+      timerInterval = setInterval(() => {
+        remaining--;
+        updateTimer();
+        if (remaining <= 0) {
+          stopTimer();
+          timerStatus.textContent = shortMode ? 'Pause vorbei – nächste Fokus-Session?' : 'Fokus-Session abgeschlossen – Zeit für eine Pause.';
+          shortMode = !shortMode;
+          remaining = shortMode ? 5 * 60 : 25 * 60;
+          updateTimer();
+        }
+      }, 1000);
+    }
+    timerToggle.addEventListener('click', () => timerRunning ? stopTimer() : startTimer());
+    document.querySelector('#timerReset').addEventListener('click', () => { stopTimer(); shortMode = false; remaining = 25 * 60; timerStatus.textContent = 'Timer zurückgesetzt.'; updateTimer(); });
+    document.querySelector('#timerMode').addEventListener('click', () => { stopTimer(); shortMode = !shortMode; remaining = shortMode ? 5 * 60 : 25 * 60; timerStatus.textContent = shortMode ? 'Pausenmodus' : 'Fokusmodus'; updateTimer(); });
+    document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.filter').forEach(b => b.classList.remove('active')); button.classList.add('active'); activeFilter = button.dataset.filter; render(); }));
+
+    render();
+    updateTimer();
+  </script>
+</body>
+</html>
