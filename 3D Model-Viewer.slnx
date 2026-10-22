@@ -3,5 +3,9 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/Projektmappenelemente/">
+    <File Path="glad.c" />
+    <File Path="stb_image.h" />
+  </Folder>
   <Project Path="3D Model-Viewer.vcxproj" Id="34ada411-7a69-4283-bdbf-499175b96768" />
 </Solution>
