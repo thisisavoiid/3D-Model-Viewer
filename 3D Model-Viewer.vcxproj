@@ -151,14 +151,22 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cube_renderable.cpp" />
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="render_object.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="time.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.hpp" />
+    <ClInclude Include="cube_renderable.hpp" />
+    <ClInclude Include="engine.hpp" />
+    <ClInclude Include="render_object.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="time.h" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

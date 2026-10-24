@@ -7,6 +7,7 @@
 class Shader {
 public:
 	unsigned id;
+
 	void use();
 	void setFloat(const char* field, float value);
 	void setVec3(const char* field, const glm::vec3& value);
