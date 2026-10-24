@@ -2,6 +2,9 @@
 #include <iostream>
 #include <filesystem>
 #include "shader.hpp"
+#include <glm/glm.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 GLFWwindow* Window::m_window = nullptr;
 //
@@ -73,10 +76,51 @@ void Window::run() {
 
 	Shader shader(vertexPath.c_str(), fragmentPath.c_str());
 
-	float v[] = {
-	-0.5f,-0.5f,0.0f,
-	0.5f,-0.5f,0.0f,
-	0.0f,0.5f,0.0f
+	float vertices[] = {
+		-0.5f, -0.5f, -0.5f,
+		0.5f, -0.5f, -0.5f, 
+		0.5f,  0.5f, -0.5f, 
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f,  0.5f,
+		0.5f, -0.5f,  0.5f, 
+		0.5f,  0.5f,  0.5f, 
+		-0.5f,  0.5f,  0.5f,
+
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		0.5f, -0.5f, -0.5f, 
+		0.5f,  0.5f, -0.5f, 
+		0.5f,  0.5f,  0.5f, 
+		0.5f, -0.5f,  0.5f, 
+
+		-0.5f, -0.5f, -0.5f,
+		0.5f, -0.5f, -0.5f, 
+		0.5f, -0.5f,  0.5f, 
+		-0.5f, -0.5f,  0.5f,
+		0.5f,  0.5f, -0.5f, 
+		-0.5f,  0.5f, -0.5f,
+		-0.5f,  0.5f,  0.5f,
+		0.5f,  0.5f,  0.5f, 
+	};
+	// index data
+	unsigned int indices[] = {
+		// front and back
+		0, 3, 2,
+		2, 1, 0,
+		4, 5, 6,
+		6, 7 ,4,
+		// left and right
+		11, 8, 9,
+		9, 10, 11,
+		12, 13, 14,
+		14, 15, 12,
+		// bottom and top
+		16, 17, 18,
+		18, 19, 16,
+		20, 21, 22,
+		22, 23, 20
 	};
 
 	unsigned vao, vbo;
@@ -85,27 +129,49 @@ void Window::run() {
 	glGenBuffers(1, &vbo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(v), v, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	unsigned int ebo;
+
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	
+	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(m_window)) {
 		processInput(m_window);
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shader.use();
 
-		shader.setFloat("uTime", static_cast<float>(glfwGetTime()));
-		shader.setFloat("uSpeed", std::abs(std::sin(glfwGetTime() * 0.1f)) * 2.5f);
-		shader.setVec3("aColor", glm::vec3(1.0f, 0.0f, 1.0f));
-		shader.setVec3("vColor", glm::vec3(1.0f, 0.0f, 1.0f));
+		glm::mat4 model(1.0f);
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -3));
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1, 1, 1));
+		model = glm::scale(model, glm::vec3(0.5f));
+
+		shader.setMat4("uModel", model);
+		shader.setMat4("uView", view);
+		shader.setMat4("uProj", proj);
+
+		shader.setVec3("aColor", glm::vec3(1.0f, 0.0f, 1.0f));
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/3, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
+
+	//delete(camera);
+	//camera = nullptr;
 }
 
 Window::Window()
