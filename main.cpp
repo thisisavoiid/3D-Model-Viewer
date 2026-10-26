@@ -76,9 +76,9 @@ int main() {
 	const std::string fragmentPath =
 		(shaderDirectory / "test.frag").string();
 
-	Shader shader(vertexPath.c_str(), fragmentPath.c_str());
+	auto shader = std::make_shared<Shader>(vertexPath.c_str(), fragmentPath.c_str());
 
-	cube->setShader(std::make_shared<Shader>(shader));
+	cube->setShader(shader);
 
 	auto camera = std::make_shared<Camera>();
 
@@ -86,6 +86,7 @@ int main() {
 	engine.setCamera(camera);
 	engine.setWindow(window);
     engine.loadObject(cube);
+
 	engine.run();
 
   
