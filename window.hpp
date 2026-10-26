@@ -4,6 +4,9 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+/// <summary>
+/// Handles window logic. Make sure to create the window object as the very first object. Otherwise, rendering may fail.
+/// </summary>
 class Window {
 public:
     GLFWwindow* getGlfwWindowInstance();

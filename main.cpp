@@ -6,9 +6,17 @@
 #include <filesystem>
 #include <vector>
 #include "window.hpp"
+#include "cube_renderable.hpp"
 
 int main() {
-	auto cube = std::make_shared<RenderObject>();
+	auto window = std::make_shared<Window>(
+		"Test",
+		600,
+		400
+	);
+
+	auto cube = std::make_shared<CubeRenderable>();
+	auto mesh = std::make_shared<Mesh>();
 
 	std::vector<float> vertices = {
 		-0.5f, -0.5f, -0.5f,
@@ -56,14 +64,11 @@ int main() {
 		22, 23, 20
 	};
 
-	cube->setVertices(vertices);
-	cube->setIndices(indices);
+	mesh->setVertices(std::move(vertices));
+	mesh->setIndices(std::move(indices));
+	mesh->genBuffers();
 
-	auto window = std::make_shared<Window>(
-		"Test",
-		600,
-		400
-	);
+	cube->setMesh(mesh);
 
 	const std::filesystem::path shaderDirectory = "shaders/test";
 	const std::string vertexPath =
@@ -75,7 +80,10 @@ int main() {
 
 	cube->setShader(std::make_shared<Shader>(shader));
 
+	auto camera = std::make_shared<Camera>();
+
     Engine engine;
+	engine.setCamera(camera);
 	engine.setWindow(window);
     engine.loadObject(cube);
 	engine.run();

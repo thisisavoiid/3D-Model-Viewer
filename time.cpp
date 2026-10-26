@@ -1,4 +1,4 @@
-#include "time.h"
+#include "time.hpp"
 #include <iostream>
 
 float Time::deltaTime = 0.0f;
@@ -13,8 +13,8 @@ double Time::time = 0.0f;
 void Time::setDeltaTime(float dt)
 {
 	Time::deltaTime = dt;
-	std::cout << "Delta Time: " << Time::deltaTime << "\n";
-
 	Time::time += dt;
-	std::cout << "Uptime: " << Time::time << "\n";
+
+	//std::cout << "Delta Time: " << Time::deltaTime << "\n";
+	//std::cout << "Uptime: " << Time::time << "\n";
 }

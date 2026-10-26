@@ -39,6 +39,12 @@
     <ClCompile Include="cube_renderable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -56,10 +62,16 @@
     <ClInclude Include="render_object.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="time.h">
+    <ClInclude Include="time.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="cube_renderable.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

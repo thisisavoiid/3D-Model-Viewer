@@ -2,7 +2,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "time.h"
+#include "time.hpp"
 #include "render_object.hpp"
 
 /// <summary>
@@ -28,6 +28,32 @@ void Engine::setWindow(std::shared_ptr<Window> window)
 	m_window = window;
 }
 
+void Engine::setCamera(std::shared_ptr<Camera> camera)
+{
+	m_camera = camera;
+}
+
+void Engine::processInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		m_camera->move(Move::Forward);
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		m_camera->move(Move::Back);
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		m_camera->move(Move::Left);
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		m_camera->move(Move::Right);
+
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		m_camera->move(Move::Up);
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		m_camera->move(Move::Down);
+}
+
 /// <summary>
 /// Updates all loaded render objects and calculates delta time.
 /// </summary>
@@ -40,6 +66,8 @@ void Engine::onUpdate() {
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
 		renderObj->update();
 	}
+
+	processInput(m_window->getGlfwWindowInstance());
 }
 
 /// <summary>
@@ -50,47 +78,18 @@ void Engine::onUpdate() {
 /// </param>
 void Engine::renderObject(std::shared_ptr<RenderObject> ro)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	std::vector<unsigned int> renderObjectIndices = ro->getIndices();
-	std::vector<float> renderObjectVertices = ro->getVertices();
-
-	unsigned vao, vbo;
-
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * renderObjectVertices.size(), renderObjectVertices.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	unsigned int ebo;
-
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * renderObjectIndices.size(), renderObjectIndices.data(), GL_STATIC_DRAW);
-
-	glEnable(GL_DEPTH_TEST);
+	std::vector<unsigned int> renderObjectIndices = ro->getMesh()->getIndices();
+	std::vector<float> renderObjectVertices = ro->getMesh()->getVertices();
 
 	std::shared_ptr<Shader> shader = ro->getShader();
 
 	glm::mat4 model(1.0f);
-	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -3));
-	glm::mat4 proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1, 1, -1));
 	model = glm::scale(model, glm::vec3(0.5f));
-
 	shader->setMat4("uModel", model);
-	shader->setMat4("uView", view);
-	shader->setMat4("uProj", proj);
 
-	shader->use();
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ro->getMesh()->getEboBuffer());
 	glDrawElements(GL_TRIANGLES, renderObjectIndices.size(), GL_UNSIGNED_INT, 0);
 }
 
@@ -104,13 +103,28 @@ void Engine::run()
 
 	m_lastUpdate = glfwGetTime();
 
-	while (!glfwWindowShouldClose(glfwWindowInstance)) {
-		onUpdate();
+	glEnable(GL_DEPTH_TEST);
 
-		for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
-			renderObj->beforeDraw();
-			renderObject(renderObj);
+	while (!glfwWindowShouldClose(glfwWindowInstance)) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		int width, height;
+		glfwGetFramebufferSize(glfwWindowInstance, &width, &height);
+
+		float aspect = (height > 0) ? (float)width / height : 1.0f;
+
+		glm::mat4 view = m_camera->getView();
+		glm::mat4 projection = m_camera->getProjection(aspect);
+
+		for (auto& obj : m_objects) {
+			obj->getShader()->use();
+			obj->getShader()->setMat4("uView", view);
+			obj->getShader()->setMat4("uProj", projection);
+			obj->beforeDraw();
+			renderObject(obj);
 		}
+
+		onUpdate();
 
 		glfwSwapBuffers(m_window->getGlfwWindowInstance());
 		glfwPollEvents();

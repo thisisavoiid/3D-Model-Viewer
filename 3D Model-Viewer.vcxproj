@@ -151,22 +151,26 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="cube_renderable.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="render_object.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.hpp" />
     <ClInclude Include="color.hpp" />
     <ClInclude Include="cube_renderable.hpp" />
     <ClInclude Include="engine.hpp" />
+    <ClInclude Include="mesh.hpp" />
     <ClInclude Include="render_object.hpp" />
     <ClInclude Include="shader.hpp" />
-    <ClInclude Include="time.h" />
+    <ClInclude Include="time.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
