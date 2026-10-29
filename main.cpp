@@ -16,35 +16,34 @@ int main() {
 	);
 
 	auto cube = std::make_shared<CubeRenderable>();
-	auto mesh = std::make_shared<Mesh>();
 
 	std::vector<float> vertices = {
 		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f, 
-		0.5f,  0.5f, -0.5f, 
+		0.5f, -0.5f, -0.5f,
+		0.5f,  0.5f, -0.5f,
 		-0.5f,  0.5f, -0.5f,
 		-0.5f, -0.5f,  0.5f,
-		0.5f, -0.5f,  0.5f, 
-		0.5f,  0.5f,  0.5f, 
+		0.5f, -0.5f,  0.5f,
+		0.5f,  0.5f,  0.5f,
 		-0.5f,  0.5f,  0.5f,
 
 		-0.5f,  0.5f, -0.5f,
 		-0.5f, -0.5f, -0.5f,
 		-0.5f, -0.5f,  0.5f,
 		-0.5f,  0.5f,  0.5f,
-		0.5f, -0.5f, -0.5f, 
-		0.5f,  0.5f, -0.5f, 
-		0.5f,  0.5f,  0.5f, 
-		0.5f, -0.5f,  0.5f, 
+		0.5f, -0.5f, -0.5f,
+		0.5f,  0.5f, -0.5f,
+		0.5f,  0.5f,  0.5f,
+		0.5f, -0.5f,  0.5f,
 
 		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f, 
-		0.5f, -0.5f,  0.5f, 
+		0.5f, -0.5f, -0.5f,
+		0.5f, -0.5f,  0.5f,
 		-0.5f, -0.5f,  0.5f,
-		0.5f,  0.5f, -0.5f, 
+		0.5f,  0.5f, -0.5f,
 		-0.5f,  0.5f, -0.5f,
 		-0.5f,  0.5f,  0.5f,
-		0.5f,  0.5f,  0.5f, 
+		0.5f,  0.5f,  0.5f,
 	};
 	std::vector<unsigned int> indices = {
 		// front and back
@@ -63,10 +62,75 @@ int main() {
 		20, 21, 22,
 		22, 23, 20
 	};
+	std::vector<float> normals = {
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
+		0.0f,  0.0f, -1.0f,
 
-	mesh->setVertices(std::move(vertices));
-	mesh->setIndices(std::move(indices));
-	mesh->genBuffers();
+		0.0f,  0.0f,  1.0f,
+		0.0f,  0.0f,  1.0f,
+		0.0f,  0.0f,  1.0f,
+		0.0f,  0.0f,  1.0f,
+
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+		1.0f,  0.0f,  0.0f,
+
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+		0.0f, -1.0f,  0.0f,
+
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f,
+		0.0f,  1.0f,  0.0f
+	};
+	std::vector<float> uvs = {
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f
+	};
+
+	auto mesh = std::make_shared<Mesh>(
+		std::move(vertices),
+		std::move(indices),
+		std::move(normals),
+		std::move(uvs)
+	);
 
 	cube->setMesh(mesh);
 
@@ -82,20 +146,12 @@ int main() {
 
 	auto camera = std::make_shared<Camera>();
 
-    Engine engine;
+	Engine engine;
 	engine.setCamera(camera);
 	engine.setWindow(window);
-    engine.loadObject(cube);
+	engine.loadObject(cube);
 
 	engine.run();
 
-  
-
-
-    //engine.start();
-
-    //delete(cube);
-    //cube = nullptr;
-
-    return 0;
+	return 0;
 }

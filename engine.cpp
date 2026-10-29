@@ -78,19 +78,13 @@ void Engine::onUpdate() {
 /// </param>
 void Engine::renderObject(std::shared_ptr<RenderObject> ro)
 {
-	std::vector<unsigned int> renderObjectIndices = ro->getMesh()->getIndices();
-	std::vector<float> renderObjectVertices = ro->getMesh()->getVertices();
-
 	std::shared_ptr<Shader> shader = ro->getShader();
+	std::shared_ptr<Mesh> mesh = ro->getMesh();
+	glm::mat4 model = ro->getModelMatrix();
 
-	glm::mat4 model(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1, 1, -1));
-	model = glm::scale(model, glm::vec3(0.5f));
 	shader->setMat4("uModel", model);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ro->getMesh()->getEboBuffer());
-	glDrawElements(GL_TRIANGLES, renderObjectIndices.size(), GL_UNSIGNED_INT, 0);
+	
+	ro->getMesh()->draw();
 }
 
 

@@ -3,47 +3,88 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-void Mesh::setVertices(std::vector<float> vertices)
+void Mesh::draw()
 {
-	m_vertices = std::move(vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, m_verticesVbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indicesEbo);
+	
+	glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 }
 
-void Mesh::setIndices(std::vector<unsigned int> indices)
+Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<float> normals, std::vector<float> uvs)
 {
-	m_indices = std::move(indices);
-}
+    m_indexCount = indices.size();
 
-Mesh::Mesh()
-{
-	genBuffers();
-}
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
 
-std::vector<float> Mesh::getVertices()
-{
-	return m_vertices;
-}
+    // VERTEX POSITIONS
+    glGenBuffers(1, &m_verticesVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_verticesVbo);
 
-std::vector<unsigned int> Mesh::getIndices()
-{
-	return m_indices;
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        vertices.size() * sizeof(float),
+        vertices.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        0, 3, GL_FLOAT, GL_FALSE,
+        3 * sizeof(float), (void*)0
+    );
+
+    glEnableVertexAttribArray(0);
+
+    // INDICES
+    glGenBuffers(1, &m_indicesEbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indicesEbo);
+
+    glBufferData(
+        GL_ELEMENT_ARRAY_BUFFER,
+        indices.size() * sizeof(unsigned int),
+        indices.data(),
+        GL_STATIC_DRAW
+    );
+
+    // NORMALS
+    glGenBuffers(1, &m_normalVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_normalVbo);
+
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        normals.size() * sizeof(float),
+        normals.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        1, 3, GL_FLOAT, GL_FALSE,
+        3 * sizeof(float), (void*)0
+    );
+
+    glEnableVertexAttribArray(1);
+
+    // UVS
+    glGenBuffers(1, &m_uvVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_uvVbo);
+
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        uvs.size() * sizeof(float),
+        uvs.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        2, 2, GL_FLOAT, GL_FALSE,
+        2 * sizeof(float), (void*)0
+    );
+
+    glEnableVertexAttribArray(2);
 }
 
 unsigned int Mesh::getEboBuffer()
 {
-	return m_ebo;
-}
-
-void Mesh::genBuffers()
-{
-	glGenVertexArrays(1, &m_vao);
-	glGenBuffers(1, &m_vbo);
-	glBindVertexArray(m_vao);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glGenBuffers(1, &m_ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);
+	return m_indicesEbo;
 }

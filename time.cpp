@@ -14,7 +14,4 @@ void Time::setDeltaTime(float dt)
 {
 	Time::deltaTime = dt;
 	Time::time += dt;
-
-	//std::cout << "Delta Time: " << Time::deltaTime << "\n";
-	//std::cout << "Uptime: " << Time::time << "\n";
 }

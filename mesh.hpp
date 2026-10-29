@@ -1,19 +1,18 @@
 #pragma once
 
 #include <vector>
+#include <glm/glm.hpp>
 
 class Mesh {
 public:
-	void setVertices(std::vector<float> vertices);
-	void setIndices(std::vector<unsigned int> indices);
-	void genBuffers();
-	Mesh();
-	std::vector<float> getVertices();
-	std::vector<unsigned int> getIndices();
+	void draw();
+	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<float> normals, std::vector<float> uvs);
 	unsigned int getEboBuffer();
 private: 
-	unsigned m_vao, m_vbo;
-	unsigned int m_ebo;
-	std::vector<unsigned int> m_indices;
-	std::vector<float> m_vertices;
+	int m_indexCount;
+	unsigned m_vao;
+	unsigned m_verticesVbo;
+	unsigned m_normalVbo;
+	unsigned m_uvVbo;
+	unsigned int m_indicesEbo;
 };
