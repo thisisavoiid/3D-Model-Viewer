@@ -6,6 +6,7 @@
 #include "mesh.hpp"
 #include <glm/glm.hpp>
 #include "transform.hpp"
+#include "input.hpp"
 
 class RenderObject {
 public:
@@ -27,11 +28,8 @@ public:
 	std::shared_ptr<Shader> getShader();
 	std::shared_ptr<Mesh> getMesh();
 	glm::mat4 getModelMatrix();
-	virtual ~RenderObject() = default;
 
-	//glm::vec3 m_position{ 0,0,0 };
-	//glm::vec3 m_rotation{ 0,0,0 };
-	//glm::vec3 m_scale{ 0.5f,0.5f,0.5f };
+	virtual ~RenderObject() = default;
 private:
 	std::shared_ptr<Shader> m_shader = nullptr;
 	std::shared_ptr<Mesh> m_mesh = nullptr;

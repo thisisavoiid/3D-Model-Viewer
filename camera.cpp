@@ -38,3 +38,9 @@ void Camera::move(Move dir)
         m_pos -= m_up * step;
     }
 }
+
+void Camera::look(glm::vec2 delta)
+{
+    m_yaw += delta.x;
+    m_pitch += delta.y;
+}

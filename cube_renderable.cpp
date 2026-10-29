@@ -3,6 +3,9 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include "time.hpp"
+#include <iostream>
+
+float speed = 1.0f;
 
 void CubeRenderable::beforeDraw() {
 	//std::cout << "test\n";
@@ -11,9 +14,28 @@ void CubeRenderable::beforeDraw() {
 }
 
 void CubeRenderable::update() {
-	m_transform.rotation.y += 0.5f * Time::deltaTime;
-	m_transform.rotation.x -= 0.5f * Time::deltaTime;
+	m_transform.rotation.y += (speed * Time::deltaTime) * Input::IsKeyHeld(Key::V);
 
-	m_transform.position.y = sin(Time::time * 1.5f) * 0.5f;
-	m_transform.position.x = cos(Time::time * 1.5f) * 0.5f;
+	if (Input::IsKeyPressed(Key::MouseX2))
+	{
+		std::cout << "Speed increased. New speed: " << speed << "x\n";
+
+		float target = speed + 0.5f;
+		speed = glm::clamp(target, 1.0f, 10.0f);
+	}
+
+	if (Input::IsKeyPressed(Key::MouseX1)) {
+		std::cout << "Speed decreased. New speed: " << speed << "x\n";
+
+		float target = speed - 0.5f;
+		speed = glm::clamp(target, 1.0f, 10.0f);
+	}
+
+	//m_transform.rotation.x -= 0.5f * Time::deltaTime;
+
+	//if ()
+	//	std::cout << "was pressed!\n";
+
+	//if (Input::IsKeyHeld(Key::V))
+	//	std::cout << "was pressed!\n";
 }

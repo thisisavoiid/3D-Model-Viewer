@@ -13,7 +13,7 @@ public:
     Window(std::string title, int width, int height);
     ~Window();
 private:
-    static GLFWwindow* m_window;
+    inline static GLFWwindow* m_window = nullptr;
     static void onResize(GLFWwindow*, int w, int h);
     //static void processInput(GLFWwindow* win);
 };

@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "time.hpp"
 #include "render_object.hpp"
+#include "input.hpp"
 
 /// <summary>
 /// Loads a render object into the engine for rendering.
@@ -58,16 +59,20 @@ void Engine::processInput(GLFWwindow* window)
 /// Updates all loaded render objects and calculates delta time.
 /// </summary>
 void Engine::onUpdate() {
+	GLFWwindow* glfwWindowInstance = m_window->getGlfwWindowInstance();
+
 	double now = glfwGetTime();
 	float deltaTime = static_cast<float>(now - m_lastUpdate);
 	m_lastUpdate = now;
 	Time::setDeltaTime(deltaTime);
 
+	Input::Update();
+
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
 		renderObj->update();
 	}
 
-	processInput(m_window->getGlfwWindowInstance());
+	processInput(glfwWindowInstance);
 }
 
 /// <summary>

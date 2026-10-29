@@ -154,6 +154,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cube_renderable.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="mesh.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="color.hpp" />
     <ClInclude Include="cube_renderable.hpp" />
     <ClInclude Include="engine.hpp" />
+    <ClInclude Include="input.hpp" />
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="render_object.hpp" />
     <ClInclude Include="shader.hpp" />

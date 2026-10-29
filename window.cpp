@@ -1,8 +1,6 @@
 #include "window.hpp"
 #include <iostream>
 
-GLFWwindow* Window::m_window = nullptr;
-
 void Window::onResize(GLFWwindow*, int w, int h)
 {
 	glViewport(0, 0, w, h);
@@ -16,7 +14,7 @@ void Window::onResize(GLFWwindow*, int w, int h)
 /// </returns>
 GLFWwindow* Window::getGlfwWindowInstance()
 {
-	return m_window;
+	return std::move(m_window);
 }
 
 /// <summary>

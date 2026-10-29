@@ -1,9 +1,6 @@
 #include "time.hpp"
 #include <iostream>
 
-float Time::deltaTime = 0.0f;
-double Time::time = 0.0f;
-
 /// <summary>
 /// Sets the current delta time and updates the total uptime.
 /// </summary>

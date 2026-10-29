@@ -2,7 +2,8 @@
 
 class Time {
 public:
-	static float deltaTime;
-	static double time;
+	Time() = delete;
+	inline static float deltaTime = 0.0f;
+	inline static double time = 0.0f;
 	static void setDeltaTime(float dt);
 };
