@@ -42,9 +42,15 @@ void Camera::move(Move dir)
 void Camera::look(glm::vec2 delta)
 {
     m_yaw += delta.x * m_sens;
-    m_pitch += delta.y * m_sens;
+    m_pitch += delta.y * -1 * m_sens;
 
-    m_forward.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-    m_forward.y = sin(glm::radians(m_pitch));
-    m_forward.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    m_pitch = glm::clamp(m_pitch, -89.0f, 89.0f);
+
+    glm::vec3 modifiedForward;
+
+    modifiedForward.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    modifiedForward.y = sin(glm::radians(m_pitch));
+    modifiedForward.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+
+    m_forward = glm::normalize(modifiedForward);
 }

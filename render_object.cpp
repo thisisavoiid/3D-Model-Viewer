@@ -13,8 +13,18 @@ void RenderObject::setMesh(std::shared_ptr<Mesh> mesh)
 	m_mesh = mesh;
 }
 
+void RenderObject::setTexture(std::shared_ptr<Texture> texture)
+{
+	m_texture = texture;
+}
+
 std::shared_ptr<Mesh> RenderObject::getMesh() {
 	return m_mesh;
+}
+
+std::shared_ptr<Texture> RenderObject::getTexture()
+{
+	return m_texture;
 }
 
 glm::mat4 RenderObject::getModelMatrix()

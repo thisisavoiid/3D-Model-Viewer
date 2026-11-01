@@ -160,6 +160,7 @@
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="render_object.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="render_object.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="texture.hpp" />
     <ClInclude Include="time.hpp" />
     <ClInclude Include="transform.hpp" />
     <ClInclude Include="window.hpp" />

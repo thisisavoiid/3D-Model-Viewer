@@ -126,10 +126,24 @@ void Engine::run()
 		glm::mat4 projection = m_camera->getProjection(aspect);
 
 		for (auto& obj : m_objects) {
-			obj->getShader()->use();
-			obj->getShader()->setMat4("uView", view);
-			obj->getShader()->setMat4("uProj", projection);
+			std::shared_ptr<Texture> texture = obj->getTexture();
+
+			if (texture != nullptr)
+			{
+				texture->bind();
+			}
+
+			std::shared_ptr<Shader> shader = obj->getShader();
+
+			if (shader != nullptr)
+			{
+				shader->use();
+				shader->setMat4("uView", view);
+				shader->setMat4("uProj", projection);
+			}
+
 			obj->beforeDraw();
+
 			renderObject(obj);
 		}
 

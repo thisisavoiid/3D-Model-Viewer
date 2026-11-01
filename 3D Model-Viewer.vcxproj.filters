@@ -48,6 +48,9 @@
     <ClCompile Include="input.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -81,6 +84,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="input.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
