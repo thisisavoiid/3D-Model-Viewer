@@ -1,7 +1,7 @@
 #include "window.hpp"
 #include <iostream>
 
-void Window::onResize(GLFWwindow*, int w, int h)
+void Window::OnResize(GLFWwindow*, int w, int h)
 {
 	glViewport(0, 0, w, h);
 }
@@ -12,9 +12,9 @@ void Window::onResize(GLFWwindow*, int w, int h)
 /// <returns>
 /// A pointer to the GLFW window used by this Window object.
 /// </returns>
-GLFWwindow* Window::getGlfwWindowInstance()
+GLFWwindow* Window::GetGlfwWindowInstance() const
 {
-	return std::move(m_window);
+	return m_window;
 }
 
 /// <summary>
@@ -66,7 +66,7 @@ Window::Window(std::string title, int width, int height)
 
 	glViewport(0, 0, width, height);
 
-	glfwSetFramebufferSizeCallback(m_window, &Window::onResize);
+	glfwSetFramebufferSizeCallback(m_window, &Window::OnResize);
 
 	std::cout << "Window and viewport setup finished! -\n";
 }

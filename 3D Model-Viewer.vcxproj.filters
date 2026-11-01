@@ -51,6 +51,9 @@
     <ClCompile Include="texture.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="light_source_renderable.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -87,6 +90,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="texture.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="light_source_renderable.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

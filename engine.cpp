@@ -12,7 +12,7 @@
 /// <param name="ro">
 /// The render object to add to the engine's object list.
 /// </param>
-void Engine::loadObject(std::shared_ptr<RenderObject> ro)
+void Engine::LoadObject(std::shared_ptr<RenderObject> ro)
 {
 	m_objects.push_back(ro);
 	std::cout << "Added render object #" << m_objects.size() << "\n";
@@ -24,63 +24,63 @@ void Engine::loadObject(std::shared_ptr<RenderObject> ro)
 /// <param name="window">
 /// The window to use for rendering and event handling.
 /// </param>
-void Engine::setWindow(std::shared_ptr<Window> window)
+void Engine::SetWindow(std::shared_ptr<Window> window)
 {
 	m_window = window;
 }
 
-void Engine::setCamera(std::shared_ptr<Camera> camera)
+void Engine::SetCamera(std::shared_ptr<Camera> camera)
 {
 	m_camera = camera;
 }
 
-void Engine::processInput(GLFWwindow* window)
+void Engine::ProcessInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		m_camera->move(Move::Forward);
+		m_camera->Move(MoveDir::Forward);
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		m_camera->move(Move::Back);
+		m_camera->Move(MoveDir::Back);
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		m_camera->move(Move::Left);
+		m_camera->Move(MoveDir::Left);
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		m_camera->move(Move::Right);
+		m_camera->Move(MoveDir::Right);
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-		m_camera->move(Move::Up);
+		m_camera->Move(MoveDir::Up);
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		m_camera->move(Move::Down);
+		m_camera->Move(MoveDir::Down);
 }
 
 /// <summary>
 /// Updates all loaded render objects and calculates delta time.
 /// </summary>
-void Engine::onUpdate() {
-	GLFWwindow* glfwWindowInstance = m_window->getGlfwWindowInstance();
+void Engine::OnUpdate() {
+	GLFWwindow* glfwWindowInstance = m_window->GetGlfwWindowInstance();
 
 	double now = glfwGetTime();
 	float deltaTime = static_cast<float>(now - m_lastUpdate);
 	m_lastUpdate = now;
-	Time::setDeltaTime(deltaTime);
+	Time::SetDeltaTime(deltaTime);
 
 	Input::UpdateKeyInput();
 
 	double xpos, ypos;
 	glfwGetCursorPos(glfwWindowInstance, &xpos, &ypos);
 
-	Input::UpdateCursorPosition(std::move(xpos), std::move(ypos));
+	Input::UpdateCursorPosition(xpos, ypos);
 
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
 		if (renderObj == nullptr)
 			continue;
 
-		renderObj->update();
+		renderObj->Update();
 	}
 
-	processInput(glfwWindowInstance); // TODO: Decouple Camera input
+	ProcessInput(glfwWindowInstance); // TODO: Decouple Camera input
 }
 
 /// <summary>
@@ -89,41 +89,41 @@ void Engine::onUpdate() {
 /// <param name="ro">
 /// The render object to draw.
 /// </param>
-void Engine::renderObject(std::shared_ptr<RenderObject> ro)
+void Engine::RenderSingleObject(std::shared_ptr<RenderObject> ro)
 {
 	if (ro == nullptr)
 		return;
 
-	std::shared_ptr<Shader> shader = ro->getShader();
-	std::shared_ptr<Mesh> mesh = ro->getMesh();
-	glm::mat4 model = ro->getModelMatrix();
+	std::shared_ptr<Shader> shader = ro->GetShader();
+	std::shared_ptr<Mesh> mesh = ro->GetMesh();
+	glm::mat4 model = ro->GetModelMatrix();
 
 	if (shader != nullptr)
-		shader->setMat4("uModel", model);
+		shader->SetMat4("uModel", model);
 
 	if (mesh != nullptr)
-		ro->getMesh()->draw();
+		ro->GetMesh()->Draw();
 }
 
-void Engine::onAwake() {
+void Engine::OnAwake() {
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
 		if (renderObj == nullptr)
 			continue;
 
-		renderObj->awake();
+		renderObj->Awake();
 	}
 }
 
 /// <summary>
 /// Starts the main engine loop.
 /// </summary>
-void Engine::run()
+void Engine::Run()
 {
-	auto glfwWindowInstance = m_window->getGlfwWindowInstance();
+	auto glfwWindowInstance = m_window->GetGlfwWindowInstance();
 	m_lastUpdate = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
-	onAwake();
+	OnAwake();
 
 	while (!glfwWindowShouldClose(glfwWindowInstance)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -133,45 +133,45 @@ void Engine::run()
 
 		float aspect = (height > 0) ? (float)width / height : 1.0f;
 
-		glm::mat4 view = m_camera->getView();
-		glm::mat4 projection = m_camera->getProjection(aspect);
+		glm::mat4 view = m_camera->GetView();
+		glm::mat4 projection = m_camera->GetProjection(aspect);
 
 		for (auto& obj : m_objects) {
 			if (obj == nullptr)
 				continue;
 
-			std::shared_ptr<Texture> texture = obj->getTexture();
-			std::shared_ptr<Shader> shader = obj->getShader();
+			std::shared_ptr<Texture> texture = obj->GetTexture();
+			std::shared_ptr<Shader> shader = obj->GetShader();
 
 			if (texture != nullptr)
 			{
-				texture->bind();
+				texture->Use();
 
 				if (shader != nullptr)
 				{
-					shader->setInt("uTexture", 0);
+					shader->SetInt("uTexture", 0);
 				}
 			}
 
 			if (shader != nullptr)
 			{
-				shader->use();
-				shader->setMat4("uView", view);
-				shader->setMat4("uProj", projection);
+				shader->Use();
+				shader->SetMat4("uView", view);
+				shader->SetMat4("uProj", projection);
 			}
 
-			obj->beforeDraw();
+			obj->BeforeDraw();
 
-			renderObject(obj);
+			RenderSingleObject(obj);
 		}
 
-		onUpdate();
+		OnUpdate();
 
 		// TODO!!
 		glm::vec2 cursorDelta = Input::GetCursorDelta();
-		m_camera->look(cursorDelta);
+		m_camera->Look(cursorDelta);
 
-		glfwSwapBuffers(m_window->getGlfwWindowInstance());
+		glfwSwapBuffers(m_window->GetGlfwWindowInstance());
 		glfwPollEvents();
 	}
 }

@@ -18,7 +18,7 @@ void Input::UpdateKeyInput()
 
 void Input::UpdateCursorPosition(double xpos, double ypos)
 {
-	glm::vec2 prevCursorPos = std::move(s_CursorPos);
+	glm::vec2 prevCursorPos = s_CursorPos;
 
 	s_CursorPos.x = xpos;
 	s_CursorPos.y = ypos;

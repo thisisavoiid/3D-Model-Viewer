@@ -8,6 +8,7 @@
 #include <vector>
 #include "window.hpp"
 #include "cube_renderable.hpp"
+#include "light_source_renderable.hpp"
 
 int main() {
 	auto window = std::make_shared<Window>(
@@ -16,8 +17,7 @@ int main() {
 		400
 	);
 
-	auto cube = std::make_shared<CubeRenderable>();
-
+	// CUBE
 	std::vector<float> vertices = {
 		-0.5f, -0.5f, -0.5f,
 		0.5f, -0.5f, -0.5f,
@@ -126,40 +126,37 @@ int main() {
 		0.0f, 1.0f
 	};
 
-	auto mesh = std::make_shared<Mesh>(
-		std::move(vertices),
-		std::move(indices),
-		std::move(normals),
-		std::move(uvs)
+	auto cube = std::make_shared<CubeRenderable>();
+	auto cubeShader = std::make_shared<Shader>(
+		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.vert", 
+		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.frag"
 	);
+	auto mesh = std::make_shared<Mesh>(vertices, indices, normals, uvs);
 
-	cube->setMesh(mesh);
+	cube->SetMesh(mesh);
+	cube->SetShader(cubeShader);
 
-	const std::filesystem::path shaderDirectory = "shaders/texture_test";
-	const std::string vertexPath =
-		(shaderDirectory / "texture_test.vert").string();
-	const std::string fragmentPath =
-		(shaderDirectory / "texture_test.frag").string();
-
-	auto shader = std::make_shared<Shader>(vertexPath.c_str(), fragmentPath.c_str());
-
-	cube->setShader(shader);
-
-	const std::filesystem::path textureDirectory = "textures";
-	auto texture = std::make_shared<Texture>(
-		(textureDirectory / "test.jpg").string().c_str()
+	//LIGHT SOURCE
+	auto lightSource = std::make_shared<LightSourceRenderable>();
+	auto lightSourceShader = std::make_shared<Shader>(
+		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.vert",
+		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.frag"
 	);
+	lightSource->SetMesh(mesh);
+	lightSource->SetShader(lightSourceShader);
 
-	cube->setTexture(texture);
-
+	//CAMERA
 	auto camera = std::make_shared<Camera>();
 
+	//ENGINE
 	Engine engine;
-	engine.setCamera(camera);
-	engine.setWindow(window);
-	engine.loadObject(cube);
+	engine.SetCamera(camera);
+	engine.SetWindow(window);
 
-	engine.run();
+	engine.LoadObject(cube);
+	engine.LoadObject(lightSource);
+
+	engine.Run();
 
 	return 0;
 }

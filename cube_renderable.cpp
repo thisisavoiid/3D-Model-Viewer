@@ -5,32 +5,32 @@
 #include "time.hpp"
 #include <iostream>
 
-float speed = 1.0f;
-
-void CubeRenderable::awake() {
+void CubeRenderable::Awake() {
 	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
 }
 
-void CubeRenderable::beforeDraw() {
-	std::shared_ptr<Shader> shader = this->getShader();
-	shader->setVec3("uColor", glm::vec3(1.0f, 0.0f, 1.0f));
+void CubeRenderable::BeforeDraw() {
+	std::shared_ptr<Shader> shader = this->GetShader();
+	//shader->SetVec3("uColor", glm::vec3(1.0f, 0.0f, 1.0f));
+	shader->SetVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader->SetVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-void CubeRenderable::update() {
-	m_transform.rotation.y += (speed * Time::deltaTime) * Input::IsKeyHeld(Key::V);
+void CubeRenderable::Update() {
+	m_transform.rotation.y += (m_speed * Time::s_DeltaTime) * Input::IsKeyHeld(Key::V);
 
 	if (Input::IsKeyPressed(Key::MouseX2))
 	{
-		std::cout << "Speed increased. New speed: " << speed << "x\n";
+		std::cout << "Speed increased. New speed: " << m_speed << "x\n";
 
-		float target = speed + 0.5f;
-		speed = glm::clamp(target, 1.0f, 10.0f);
+		float target = m_speed + 0.5f;
+		m_speed = glm::clamp(target, 1.0f, 10.0f);
 	}
 
 	if (Input::IsKeyPressed(Key::MouseX1)) {
-		std::cout << "Speed decreased. New speed: " << speed << "x\n";
+		std::cout << "Speed decreased. New speed: " << m_speed << "x\n";
 
-		float target = speed - 0.5f;
-		speed = glm::clamp(target, 1.0f, 10.0f);
+		float target = m_speed - 0.5f;
+		m_speed = glm::clamp(target, 1.0f, 10.0f);
 	}
 }

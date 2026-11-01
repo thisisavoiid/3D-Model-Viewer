@@ -9,9 +9,9 @@
 /// <summary>
 /// Activates this shader program for subsequent rendering calls.
 /// </summary>
-void Shader::use()
+void Shader::Use()
 {
-	glUseProgram(id);
+	glUseProgram(m_id);
 }
 
 /// <summary>
@@ -23,9 +23,9 @@ void Shader::use()
 /// <param name="value">
 /// The float value to assign to the uniform.
 /// </param>
-void Shader::setFloat(const char* field, float value)
+void Shader::SetFloat(const char* field, float value)
 {
-	glUniform1f(glGetUniformLocation(id, field), value);
+	glUniform1f(glGetUniformLocation(m_id, field), value);
 }
 
 /// <summary>
@@ -37,9 +37,9 @@ void Shader::setFloat(const char* field, float value)
 /// <param name="value">
 /// The glm::vec3 value to assign to the uniform.
 /// </param>
-void Shader::setVec3(const char* field, const glm::vec3& value)
+void Shader::SetVec3(const char* field, const glm::vec3& value)
 {
-	glUniform3fv(glGetUniformLocation(id, field), 1, &value[0]);
+	glUniform3fv(glGetUniformLocation(m_id, field), 1, &value[0]);
 }
 
 /// <summary>
@@ -51,14 +51,14 @@ void Shader::setVec3(const char* field, const glm::vec3& value)
 /// <param name="value">
 /// The glm::mat4 value to assign to the uniform.
 /// </param>
-void Shader::setMat4(const char* field, const glm::mat4& value)
+void Shader::SetMat4(const char* field, const glm::mat4& value)
 {
-	glUniformMatrix4fv(glGetUniformLocation(id, field), 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(m_id, field), 1, GL_FALSE, &value[0][0]);
 }
 
-void Shader::setInt(const char* field, int value)
+void Shader::SetInt(const char* field, int value)
 {
-	glUniform1i(glGetUniformLocation(id, field), value);
+	glUniform1i(glGetUniformLocation(m_id, field), value);
 }
 
 /// <summary>
@@ -72,23 +72,23 @@ void Shader::setInt(const char* field, int value)
 /// </param>
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
-	id = glCreateProgram();
+	m_id = glCreateProgram();
 
-	unsigned v = build(GL_VERTEX_SHADER, vertexPath);
-	unsigned f = build(GL_FRAGMENT_SHADER, fragmentPath);
+	unsigned v = Build(GL_VERTEX_SHADER, vertexPath);
+	unsigned f = Build(GL_FRAGMENT_SHADER, fragmentPath);
 
-	glAttachShader(id, v);
-	glAttachShader(id, f);
+	glAttachShader(m_id, v);
+	glAttachShader(m_id, f);
 
-	glLinkProgram(id);
+	glLinkProgram(m_id);
 
 	int ok;
 
-	glGetProgramiv(id, GL_LINK_STATUS, &ok);
+	glGetProgramiv(m_id, GL_LINK_STATUS, &ok);
 
 	if (!ok) {
 		char log[512];
-		glGetProgramInfoLog(id, 512, nullptr, log);
+		glGetProgramInfoLog(m_id, 512, nullptr, log);
 		std::cerr << "An error occured while linking shaders:\n" << log;
 	}
 	else {
@@ -97,6 +97,11 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 	glDeleteShader(v);
 	glDeleteShader(f);
+}
+
+Shader::~Shader()
+{
+	glDeleteProgram(m_id);
 }
 
 /// <summary>
@@ -111,7 +116,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 /// <returns>
 /// The compiled OpenGL shader object ID.
 /// </returns>
-unsigned Shader::build(GLenum type, const char* path)
+unsigned Shader::Build(GLenum type, const char* path)
 {
 	unsigned s = glCreateShader(type);
 	std::ifstream in(path);

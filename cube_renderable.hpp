@@ -4,7 +4,10 @@
 
 class CubeRenderable : public RenderObject {
 public: 
-	void update() override;
-	void beforeDraw() override;
-	void awake() override;
+	void Update() override;
+	void BeforeDraw() override;
+	void Awake() override;
+
+private:
+	float m_speed = 2.5f;
 };

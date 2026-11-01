@@ -2,7 +2,8 @@
 
 class Texture {
 public:
-	unsigned id;
+	unsigned m_id;
 	Texture(const char* path);
-	void bind();
+	~Texture();
+	void Use();
 };

@@ -7,8 +7,8 @@
 /// <param name="dt">
 /// The delta time value to set for the current frame.
 /// </param>
-void Time::setDeltaTime(float dt)
+void Time::SetDeltaTime(float dt)
 {
-	Time::deltaTime = dt;
-	Time::time += dt;
+	Time::s_DeltaTime = dt;
+	Time::s_Time += dt;
 }

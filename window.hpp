@@ -9,11 +9,11 @@
 /// </summary>
 class Window {
 public:
-    GLFWwindow* getGlfwWindowInstance();
+    GLFWwindow* GetGlfwWindowInstance() const;
     Window(std::string title, int width, int height);
     ~Window();
 private:
     inline static GLFWwindow* m_window = nullptr;
-    static void onResize(GLFWwindow*, int w, int h);
+    static void OnResize(GLFWwindow*, int w, int h);
     //static void processInput(GLFWwindow* win);
 };

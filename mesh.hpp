@@ -5,9 +5,10 @@
 
 class Mesh {
 public:
-	void draw();
+	void Draw();
 	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<float> normals, std::vector<float> uvs);
-	unsigned int getEboBuffer();
+	~Mesh();
+	unsigned int GetEboBuffer() const;
 private: 
 	int m_indexCount;
 	unsigned m_vao;

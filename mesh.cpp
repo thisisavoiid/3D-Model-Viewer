@@ -3,8 +3,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-void Mesh::draw()
+void Mesh::Draw()
 {
+    glBindVertexArray(m_vao);
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_verticesVbo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indicesEbo);
 	
@@ -84,7 +86,16 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::
     glEnableVertexAttribArray(2);
 }
 
-unsigned int Mesh::getEboBuffer()
+Mesh::~Mesh()
+{
+    glDeleteVertexArrays(1, &m_vao);
+    glDeleteBuffers(1, &m_verticesVbo);
+    glDeleteBuffers(1, &m_normalVbo);
+    glDeleteBuffers(1, &m_uvVbo);
+    glDeleteBuffers(1, &m_indicesEbo);
+}
+
+unsigned int Mesh::GetEboBuffer() const
 {
 	return m_indicesEbo;
 }

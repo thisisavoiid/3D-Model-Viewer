@@ -6,14 +6,16 @@
 
 class Shader {
 public:
-	unsigned id;
+	unsigned m_id;
 
-	void use();
-	void setFloat(const char* field, float value);
-	void setVec3(const char* field, const glm::vec3& value);
-	void setMat4(const char* field, const glm::mat4& value);
-	void setInt(const char* field, int value);
+	void Use();
+	void SetFloat(const char* field, float value);
+	void SetVec3(const char* field, const glm::vec3& value);
+	void SetMat4(const char* field, const glm::mat4& value);
+	void SetInt(const char* field, int value);
 	Shader(const char* vertexPath, const char* fragmentPath);
+	~Shader();
+
 private:
-	static unsigned build(GLenum type, const char* path);
+	static unsigned Build(GLenum type, const char* path);
 };

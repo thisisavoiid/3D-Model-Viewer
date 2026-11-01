@@ -155,6 +155,7 @@
     <ClCompile Include="cube_renderable.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="light_source_renderable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="mesh.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="cube_renderable.hpp" />
     <ClInclude Include="engine.hpp" />
     <ClInclude Include="input.hpp" />
+    <ClInclude Include="light_source_renderable.hpp" />
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="render_object.hpp" />
     <ClInclude Include="shader.hpp" />

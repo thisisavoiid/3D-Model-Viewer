@@ -7,8 +7,8 @@
 
 Texture::Texture(const char* path)
 {
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
+	glGenTextures(1, &m_id);
+	glBindTexture(GL_TEXTURE_2D, m_id);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -23,8 +23,34 @@ Texture::Texture(const char* path)
 	std::cout << "Loading texture at path " << path << " (" << width << "x" << height << ") with " << nrChannels << " channels... -\n";
 
 	if (data) {
+		GLenum format = GL_RGBA;
+		GLenum internalFormat = GL_RGBA;
+
+		switch (nrChannels) {
+		case 1:
+			format = GL_RED;
+			internalFormat = GL_RED;
+			break;
+		case 2:
+			format = GL_RG;
+			internalFormat = GL_RG;
+			break;
+		case 3:
+			format = GL_RGB;
+			internalFormat = GL_RGB;
+			break;
+		case 4:
+			format = GL_RGBA;
+			internalFormat = GL_RGBA;
+			break;
+		default:
+			std::cerr << "Unsupported number of channels: " << nrChannels << "! -\n";
+			stbi_image_free(data);
+			return;
+		}
+
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // TODO: make this dynamic (load format depending on nrchannels)
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, data); // TODO: make this dynamic (load format depending on nrchannels)
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		std::cout << "Texture at path " << path << " loaded successfully! -\n";
@@ -36,8 +62,13 @@ Texture::Texture(const char* path)
 	stbi_image_free(data);
 }
 
-void Texture::bind()
+Texture::~Texture()
+{
+	glDeleteTextures(1, &m_id);
+}
+
+void Texture::Use()
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, id);
+	glBindTexture(GL_TEXTURE_2D, m_id);
 }

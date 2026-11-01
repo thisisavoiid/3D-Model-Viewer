@@ -11,29 +11,29 @@
 
 class RenderObject {
 public:
-	void setShader(std::shared_ptr<Shader> shader);
-	void setMesh(std::shared_ptr<Mesh> mesh);
-	void setTexture(std::shared_ptr<Texture> texture);
+	void SetShader(std::shared_ptr<Shader> shader);
+	void SetMesh(std::shared_ptr<Mesh> mesh);
+	void SetTexture(std::shared_ptr<Texture> texture);
 
 	/// <summary>
 	/// Updates this render object each frame. Override in derived classes.
 	/// </summary>
-	virtual void update() = 0;
+	virtual void Update() = 0;
 
 	/// <summary>
 	/// Called just before drawing this render object. Override in derived classes.
 	/// </summary>
-	virtual void beforeDraw() = 0;
+	virtual void BeforeDraw() = 0;
 
-	virtual void awake() = 0;
+	virtual void Awake() = 0;
 
 	Transform m_transform;
 
-	std::shared_ptr<Shader> getShader();
-	std::shared_ptr<Mesh> getMesh();
-	std::shared_ptr<Texture> getTexture();
+	std::shared_ptr<Shader> GetShader() const;
+	std::shared_ptr<Mesh> GetMesh() const;
+	std::shared_ptr<Texture> GetTexture() const;
 
-	glm::mat4 getModelMatrix();
+	glm::mat4 GetModelMatrix() const;
 
 	virtual ~RenderObject() = default;
 private:
