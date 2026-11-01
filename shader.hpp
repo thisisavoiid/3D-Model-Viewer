@@ -12,6 +12,7 @@ public:
 	void setFloat(const char* field, float value);
 	void setVec3(const char* field, const glm::vec3& value);
 	void setMat4(const char* field, const glm::mat4& value);
+	void setInt(const char* field, int value);
 	Shader(const char* vertexPath, const char* fragmentPath);
 private:
 	static unsigned build(GLenum type, const char* path);

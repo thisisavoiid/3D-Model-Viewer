@@ -18,20 +18,25 @@ Texture::Texture(const char* path)
 	stbi_set_flip_vertically_on_load(true);
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0); 
+	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 4); 
+
+	std::cout << "Loading texture at path " << path << " (" << width << "x" << height << ") with " << nrChannels << " channels... -\n";
 
 	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data); // TODO: make this dynamic (load format depending on nrchannels)
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // TODO: make this dynamic (load format depending on nrchannels)
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		std::cout << "Texture at path " << path << " loaded successfully! -\n";
 	}
 	else {
-		std::cerr << "Failed to load texture!\n";
+		std::cerr << "Failed to load texture! -\n";
 	}
 	
 	stbi_image_free(data);
 }
 
-void Texture::bind() const
+void Texture::bind()
 {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, id);

@@ -56,6 +56,11 @@ void Shader::setMat4(const char* field, const glm::mat4& value)
 	glUniformMatrix4fv(glGetUniformLocation(id, field), 1, GL_FALSE, &value[0][0]);
 }
 
+void Shader::setInt(const char* field, int value)
+{
+	glUniform1i(glGetUniformLocation(id, field), value);
+}
+
 /// <summary>
 /// Constructs a shader program by compiling and linking the given vertex and fragment shader files.
 /// </summary>

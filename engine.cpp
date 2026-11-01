@@ -74,10 +74,13 @@ void Engine::onUpdate() {
 	Input::UpdateCursorPosition(std::move(xpos), std::move(ypos));
 
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
+		if (renderObj == nullptr)
+			continue;
+
 		renderObj->update();
 	}
 
-	processInput(glfwWindowInstance); // TODO: Decouple
+	processInput(glfwWindowInstance); // TODO: Decouple Camera input
 }
 
 /// <summary>
@@ -88,17 +91,25 @@ void Engine::onUpdate() {
 /// </param>
 void Engine::renderObject(std::shared_ptr<RenderObject> ro)
 {
+	if (ro == nullptr)
+		return;
+
 	std::shared_ptr<Shader> shader = ro->getShader();
 	std::shared_ptr<Mesh> mesh = ro->getMesh();
 	glm::mat4 model = ro->getModelMatrix();
 
-	shader->setMat4("uModel", model);
-	
-	ro->getMesh()->draw();
+	if (shader != nullptr)
+		shader->setMat4("uModel", model);
+
+	if (mesh != nullptr)
+		ro->getMesh()->draw();
 }
 
 void Engine::onAwake() {
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
+		if (renderObj == nullptr)
+			continue;
+
 		renderObj->awake();
 	}
 }
@@ -126,14 +137,21 @@ void Engine::run()
 		glm::mat4 projection = m_camera->getProjection(aspect);
 
 		for (auto& obj : m_objects) {
+			if (obj == nullptr)
+				continue;
+
 			std::shared_ptr<Texture> texture = obj->getTexture();
+			std::shared_ptr<Shader> shader = obj->getShader();
 
 			if (texture != nullptr)
 			{
 				texture->bind();
-			}
 
-			std::shared_ptr<Shader> shader = obj->getShader();
+				if (shader != nullptr)
+				{
+					shader->setInt("uTexture", 0);
+				}
+			}
 
 			if (shader != nullptr)
 			{

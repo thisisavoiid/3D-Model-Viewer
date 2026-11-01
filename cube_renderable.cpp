@@ -12,7 +12,6 @@ void CubeRenderable::awake() {
 }
 
 void CubeRenderable::beforeDraw() {
-	//std::cout << "test\n";
 	std::shared_ptr<Shader> shader = this->getShader();
 	shader->setVec3("uColor", glm::vec3(1.0f, 0.0f, 1.0f));
 }
@@ -34,19 +33,4 @@ void CubeRenderable::update() {
 		float target = speed - 0.5f;
 		speed = glm::clamp(target, 1.0f, 10.0f);
 	}
-
-	//glm::vec2 cursorDelta = Input::GetCursorDelta();
-	//
-	//m_transform.rotation.y += cursorDelta.x * Time::deltaTime;
-	//m_transform.rotation.x += cursorDelta.y *Time::deltaTime;
-
-	//std::cout << "x: " << cursorDelta.x << " y: " << cursorDelta.y << "\n";
-
-	//m_transform.rotation.x -= 0.5f * Time::deltaTime;
-
-	//if ()
-	//	std::cout << "was pressed!\n";
-
-	//if (Input::IsKeyHeld(Key::V))
-	//	std::cout << "was pressed!\n";
 }

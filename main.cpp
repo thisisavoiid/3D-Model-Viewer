@@ -3,6 +3,7 @@
 #include "engine.hpp"
 #include <memory>
 #include <string>
+#include "texture.hpp"
 #include <filesystem>
 #include <vector>
 #include "window.hpp"
@@ -134,15 +135,22 @@ int main() {
 
 	cube->setMesh(mesh);
 
-	const std::filesystem::path shaderDirectory = "shaders/test";
+	const std::filesystem::path shaderDirectory = "shaders/texture_test";
 	const std::string vertexPath =
-		(shaderDirectory / "test.vert").string();
+		(shaderDirectory / "texture_test.vert").string();
 	const std::string fragmentPath =
-		(shaderDirectory / "test.frag").string();
+		(shaderDirectory / "texture_test.frag").string();
 
 	auto shader = std::make_shared<Shader>(vertexPath.c_str(), fragmentPath.c_str());
 
 	cube->setShader(shader);
+
+	const std::filesystem::path textureDirectory = "textures";
+	auto texture = std::make_shared<Texture>(
+		(textureDirectory / "test.jpg").string().c_str()
+	);
+
+	cube->setTexture(texture);
 
 	auto camera = std::make_shared<Camera>();
 
