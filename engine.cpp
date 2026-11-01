@@ -143,7 +143,7 @@ void Engine::Run()
 			if (obj == nullptr)
 				continue;
 
-			//TODO: Refactor light source fetching!
+			//TODO: Refactor light source fetching! This is not a good solution but it does its job for now.
 			if (auto light = std::dynamic_pointer_cast<LightSourceRenderable>(obj)) {
 				lightPos = light->GetLightPosition();
 				lightCol = light->GetLightColor();
