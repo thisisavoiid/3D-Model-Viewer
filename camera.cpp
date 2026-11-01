@@ -12,6 +12,11 @@ glm::mat4 Camera::GetProjection(float aspect) const
     return glm::perspective(glm::radians(m_fov), aspect, 0.1f, 100.0f);
 }
 
+glm::vec3 Camera::GetPosition() const
+{
+    return m_pos;
+}
+
 void Camera::Move(MoveDir dir)
 {
     glm::vec3 right = glm::normalize(glm::cross(m_up, m_forward));

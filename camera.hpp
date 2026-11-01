@@ -9,6 +9,8 @@ class Camera {
 public:
 	glm::mat4 GetView() const;
 	glm::mat4 GetProjection(float aspect) const;
+	glm::vec3 GetPosition() const;
+
 	void Move(MoveDir dir);
 	void Look(glm::vec2 delta);
 private:

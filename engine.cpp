@@ -5,7 +5,7 @@
 #include "time.hpp"
 #include "render_object.hpp"
 #include "input.hpp"
-
+#include "light_source_renderable.hpp"
 /// <summary>
 /// Loads a render object into the engine for rendering.
 /// </summary>
@@ -125,6 +125,9 @@ void Engine::Run()
 
 	OnAwake();
 
+	glm::vec3 lightPos(0.0f);
+	glm::vec3 lightCol(1.0f);
+
 	while (!glfwWindowShouldClose(glfwWindowInstance)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -139,6 +142,14 @@ void Engine::Run()
 		for (auto& obj : m_objects) {
 			if (obj == nullptr)
 				continue;
+
+			//TODO: Refactor light source fetching!
+			if (auto light = std::dynamic_pointer_cast<LightSourceRenderable>(obj)) {
+				lightPos = light->GetLightPosition();
+				lightCol = light->GetLightColor();
+			}
+
+			//std::cout << lightPos.x << "|" << lightPos.y << "|" << lightPos.z << "\n";
 
 			std::shared_ptr<Texture> texture = obj->GetTexture();
 			std::shared_ptr<Shader> shader = obj->GetShader();
@@ -158,6 +169,8 @@ void Engine::Run()
 				shader->Use();
 				shader->SetMat4("uView", view);
 				shader->SetMat4("uProj", projection);
+
+				shader->SetVec3("lightPos", lightPos);
 			}
 
 			obj->BeforeDraw();

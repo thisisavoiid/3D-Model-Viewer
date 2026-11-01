@@ -7,7 +7,8 @@ public:
 	void Update() override;
 	void BeforeDraw() override;
 	void Awake() override;
-
-//private:
-//	float m_speed = 2.5f;
+	glm::vec3 GetLightPosition() const;
+	glm::vec3 GetLightColor() const;
+private:
+	glm::vec3 m_lightColor{ 0.0f,1.0f,0.0f };
 };
