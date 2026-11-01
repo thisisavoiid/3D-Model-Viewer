@@ -19,5 +19,6 @@ private:
 	std::shared_ptr<Camera> m_camera = nullptr;
 	void processInput(GLFWwindow* window);
 	void onUpdate();
+	void onAwake();
 	void renderObject(std::shared_ptr<RenderObject> ro);
 };

@@ -19,4 +19,5 @@ private:
 	float m_pitch; // Up & Down
 	float m_fov = 45.0f;
 	float m_speed = 5.0f;
+	float m_sens = 0.15f;
 };

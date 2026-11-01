@@ -23,6 +23,8 @@ public:
 	/// </summary>
 	virtual void beforeDraw() = 0;
 
+	virtual void awake() = 0;
+
 	Transform m_transform;
 
 	std::shared_ptr<Shader> getShader();

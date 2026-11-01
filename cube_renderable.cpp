@@ -7,6 +7,10 @@
 
 float speed = 1.0f;
 
+void CubeRenderable::awake() {
+	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
+}
+
 void CubeRenderable::beforeDraw() {
 	//std::cout << "test\n";
 	std::shared_ptr<Shader> shader = this->getShader();
@@ -30,6 +34,13 @@ void CubeRenderable::update() {
 		float target = speed - 0.5f;
 		speed = glm::clamp(target, 1.0f, 10.0f);
 	}
+
+	//glm::vec2 cursorDelta = Input::GetCursorDelta();
+	//
+	//m_transform.rotation.y += cursorDelta.x * Time::deltaTime;
+	//m_transform.rotation.x += cursorDelta.y *Time::deltaTime;
+
+	//std::cout << "x: " << cursorDelta.x << " y: " << cursorDelta.y << "\n";
 
 	//m_transform.rotation.x -= 0.5f * Time::deltaTime;
 

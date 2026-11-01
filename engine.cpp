@@ -66,13 +66,18 @@ void Engine::onUpdate() {
 	m_lastUpdate = now;
 	Time::setDeltaTime(deltaTime);
 
-	Input::Update();
+	Input::UpdateKeyInput();
+
+	double xpos, ypos;
+	glfwGetCursorPos(glfwWindowInstance, &xpos, &ypos);
+
+	Input::UpdateCursorPosition(std::move(xpos), std::move(ypos));
 
 	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
 		renderObj->update();
 	}
 
-	processInput(glfwWindowInstance);
+	processInput(glfwWindowInstance); // TODO: Decouple
 }
 
 /// <summary>
@@ -92,6 +97,11 @@ void Engine::renderObject(std::shared_ptr<RenderObject> ro)
 	ro->getMesh()->draw();
 }
 
+void Engine::onAwake() {
+	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
+		renderObj->awake();
+	}
+}
 
 /// <summary>
 /// Starts the main engine loop.
@@ -99,10 +109,10 @@ void Engine::renderObject(std::shared_ptr<RenderObject> ro)
 void Engine::run()
 {
 	auto glfwWindowInstance = m_window->getGlfwWindowInstance();
-
 	m_lastUpdate = glfwGetTime();
-
 	glEnable(GL_DEPTH_TEST);
+
+	onAwake();
 
 	while (!glfwWindowShouldClose(glfwWindowInstance)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -124,6 +134,10 @@ void Engine::run()
 		}
 
 		onUpdate();
+
+		// TODO!!
+		glm::vec2 cursorDelta = Input::GetCursorDelta();
+		m_camera->look(cursorDelta);
 
 		glfwSwapBuffers(m_window->getGlfwWindowInstance());
 		glfwPollEvents();

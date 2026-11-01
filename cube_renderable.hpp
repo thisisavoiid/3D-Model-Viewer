@@ -6,4 +6,5 @@ class CubeRenderable : public RenderObject {
 public: 
 	void update() override;
 	void beforeDraw() override;
+	void awake() override;
 };

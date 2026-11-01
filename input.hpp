@@ -2,6 +2,7 @@
 #include <vector>
 #include <windows.h>
 #include <unordered_map>
+#include <glm/glm.hpp>
 
 enum class Key : int
 {
@@ -196,11 +197,17 @@ enum class Key : int
 class Input {
 public:
     Input() = delete;
-    static void Update();
+    static void UpdateKeyInput();
+    static void UpdateCursorPosition(double xpos, double ypos);
+    static void SetCursorMode(int mode);
 	static bool IsKeyHeld(Key key);
     static bool IsKeyReleased(Key key);
     static bool IsKeyPressed(Key key);
+    static glm::vec2 GetCursorDelta();
+    static glm::vec2 GetCursorPos();
 private:
+    inline static glm::vec2 s_CursorPos{ 0,0 };
+    inline static glm::vec2 s_CursorDelta{ 0,0 };
     inline static std::unordered_map<int, bool> s_CurrentKeys;
     inline static std::unordered_map<int, bool> s_PreviousKeys;
 };
