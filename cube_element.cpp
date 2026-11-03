@@ -5,6 +5,8 @@
 #include "time.hpp"
 #include <iostream>
 #include "input.hpp"
+#include <string>
+#include <format>
 
 void CubeElement::Awake(Engine& engine) {
 	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
@@ -21,14 +23,14 @@ void CubeElement::Update() {
 
 	if (Input::IsKeyPressed(Key::MouseX2))
 	{
-		std::cout << "Speed increased. New speed: " << m_speed << "x\n";
+		std::cout << std::format("Speed increased. New speed: {}\n", m_speed);
 
 		float target = m_speed + 0.5f;
 		m_speed = glm::clamp(target, 1.0f, 10.0f);
 	}
 
 	if (Input::IsKeyPressed(Key::MouseX1)) {
-		std::cout << "Speed decreased. New speed: " << m_speed << "x\n";
+		std::cout << std::format("Speed decreased. New speed: {}\n", m_speed);
 
 		float target = m_speed - 0.5f;
 		m_speed = glm::clamp(target, 1.0f, 10.0f);

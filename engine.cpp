@@ -6,6 +6,8 @@
 #include "input.hpp"
 #include "light_source_element.hpp"
 #include "camera_element.hpp"
+#include <string>
+#include <format>
 
 /// <summary>
 /// Loads a render object into the engine for rendering.
@@ -16,7 +18,7 @@
 void Engine::LoadObject(std::shared_ptr<SceneElement> ro)
 {
 	m_objects.push_back(ro);
-	std::cout << "Added scene element #" << m_objects.size() << "\n";
+	std::cout << std::format("Added scene element #{} -\n", m_objects.size());
 }
 
 /// <summary>
