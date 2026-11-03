@@ -130,7 +130,7 @@ int main() {
 
 	// Testtextur im Arbeitsverzeichnis unter assets/test_texture.png ablegen.
 	const std::filesystem::path texturePath =
-		std::filesystem::current_path() / "textures" / "test.jpg";
+		std::filesystem::current_path() / "textures" / "example_texture_01.png";
 	const std::string texturePathString = texturePath.string();
 	auto textureUnique = std::make_unique<Texture>(texturePathString.c_str());
 	std::shared_ptr<Texture> texture = std::move(textureUnique);

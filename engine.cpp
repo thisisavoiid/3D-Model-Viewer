@@ -155,6 +155,11 @@ void Engine::Run()
 					shader->SetVec3("uLightPos", lightPos);
 					shader->SetVec3("uLightColor", lightCol);
 				}
+
+				if (m_camera != nullptr)
+				{
+					shader->SetVec3("uViewPos", m_camera->m_transform.position);
+				}
 			}
 
 			obj->BeforeDraw();
