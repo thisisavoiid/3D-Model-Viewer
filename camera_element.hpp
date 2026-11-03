@@ -1,11 +1,12 @@
 #pragma once
 #include <glm/glm.hpp>
+#include "scene_element.hpp"
 
 enum class MoveDir {
 	Forward, Back, Left, Right, Up, Down
 };
 
-class Camera {
+class CameraElement : public SceneElement, public std::enable_shared_from_this<CameraElement>{
 public:
 	glm::mat4 GetView() const;
 	glm::mat4 GetProjection(float aspect) const;
@@ -13,6 +14,11 @@ public:
 
 	void Move(MoveDir dir);
 	void Look(glm::vec2 delta);
+
+	void Update() override;
+	void Awake(Engine& engine) override;
+	void BeforeDraw() override;
+
 private:
 	glm::vec3 m_pos{ 0.0f,0.0f,3.0f };
 	glm::vec3 m_forward{ 0.0f,0.0f,-1.0f };

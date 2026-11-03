@@ -1,11 +1,11 @@
 #include "engine.hpp"
 #include <iostream>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include "time.hpp"
 #include "scene_element.hpp"
 #include "input.hpp"
 #include "light_source_element.hpp"
+#include "camera_element.hpp"
 
 /// <summary>
 /// Loads a render object into the engine for rendering.
@@ -30,30 +30,9 @@ void Engine::SetWindow(std::shared_ptr<Window> window)
 	m_window = window;
 }
 
-void Engine::SetCamera(std::shared_ptr<Camera> camera)
+void Engine::SetCamera(std::shared_ptr<CameraElement> camera)
 {
 	m_camera = camera;
-}
-
-void Engine::ProcessInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Forward);
-
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Back);
-
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Left);
-
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Right);
-
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Up);
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		m_camera->Move(MoveDir::Down);
 }
 
 /// <summary>
@@ -80,8 +59,6 @@ void Engine::OnUpdate() {
 
 		renderObj->Update();
 	}
-
-	ProcessInput(glfwWindowInstance); // TODO: Decouple Camera input
 }
 
 /// <summary>
@@ -90,7 +67,7 @@ void Engine::OnUpdate() {
 /// <param name="ro">
 /// The render object to draw.
 /// </param>
-void Engine::RenderSingleObject(std::shared_ptr<SceneElement> ro)
+void Engine::RenderSceneElement(std::shared_ptr<SceneElement> ro)
 {
 	if (ro == nullptr)
 		return;
@@ -111,7 +88,7 @@ void Engine::OnAwake() {
 		if (renderObj == nullptr)
 			continue;
 
-		renderObj->Awake();
+		renderObj->Awake(*this);
 	}
 }
 
@@ -137,8 +114,8 @@ void Engine::Run()
 
 		float aspect = (height > 0) ? (float)width / height : 1.0f;
 
-		glm::mat4 view = m_camera->GetView();
-		glm::mat4 projection = m_camera->GetProjection(aspect);
+		glm::mat4 view = m_camera != nullptr ? m_camera->GetView() : glm::mat4(1.0f);
+		glm::mat4 projection = m_camera != nullptr ? m_camera->GetProjection(aspect) : glm::mat4(1.0f);
 
 		for (auto& obj : m_objects) {
 			if (obj == nullptr)
@@ -149,8 +126,6 @@ void Engine::Run()
 				lightPos = light->GetLightPosition();
 				lightCol = light->GetLightColor();
 			}
-
-			//std::cout << lightPos.x << "|" << lightPos.y << "|" << lightPos.z << "\n";
 
 			std::shared_ptr<Texture> texture = obj->GetTexture();
 			std::shared_ptr<Shader> shader = obj->GetShader();
@@ -176,14 +151,10 @@ void Engine::Run()
 
 			obj->BeforeDraw();
 
-			RenderSingleObject(obj);
+			RenderSceneElement(obj);
 		}
 
 		OnUpdate();
-
-		// TODO!!
-		glm::vec2 cursorDelta = Input::GetCursorDelta();
-		m_camera->Look(cursorDelta);
 
 		glfwSwapBuffers(m_window->GetGlfwWindowInstance());
 		glfwPollEvents();

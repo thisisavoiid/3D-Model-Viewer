@@ -7,7 +7,8 @@
 #include "mesh.hpp"
 #include <glm/glm.hpp>
 #include "transform.hpp"
-#include "input.hpp"
+
+class Engine;
 
 class SceneElement {
 public:
@@ -25,7 +26,7 @@ public:
 	/// </summary>
 	virtual void BeforeDraw() = 0;
 
-	virtual void Awake() = 0;
+	virtual void Awake(Engine& engine) = 0;
 
 	Transform m_transform;
 

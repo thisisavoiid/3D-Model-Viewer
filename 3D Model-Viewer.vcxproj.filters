@@ -42,7 +42,7 @@
     <ClCompile Include="mesh.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="camera_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="input.cpp">
@@ -80,7 +80,7 @@
     <ClInclude Include="mesh.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="camera.hpp">
+    <ClInclude Include="camera_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="transform.hpp">

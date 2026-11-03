@@ -9,6 +9,7 @@
 #include "window.hpp"
 #include "cube_element.hpp"
 #include "light_source_element.hpp"
+#include "camera_element.hpp"
 
 int main() {
 	auto window = std::make_shared<Window>(
@@ -146,14 +147,15 @@ int main() {
 	lightSource->SetShader(lightSourceShader);
 
 	//CAMERA
-	auto camera = std::make_shared<Camera>();
+	auto camera = std::make_shared<CameraElement>();
 
 	//ENGINE
 	Engine engine;
-	engine.SetCamera(camera);
+	//engine.SetCamera(camera);
 	engine.SetWindow(window);
 
 	engine.LoadObject(cube);
+	engine.LoadObject(camera);
 	engine.LoadObject(lightSource);
 
 	engine.Run();

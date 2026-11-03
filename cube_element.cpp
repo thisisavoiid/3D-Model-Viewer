@@ -4,8 +4,9 @@
 #include <glm/glm.hpp>
 #include "time.hpp"
 #include <iostream>
+#include "input.hpp"
 
-void CubeElement::Awake() {
+void CubeElement::Awake(Engine& engine) {
 	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
 }
 

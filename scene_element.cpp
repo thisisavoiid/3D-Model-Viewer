@@ -1,7 +1,6 @@
 #include "scene_element.hpp"
 #include "shader.hpp"
 #include <memory>
-#include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 
 void SceneElement::SetShader(std::shared_ptr<Shader> shader)

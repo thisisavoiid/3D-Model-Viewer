@@ -6,7 +6,7 @@ class LightSourceElement : public SceneElement {
 public:
 	void Update() override;
 	void BeforeDraw() override;
-	void Awake() override;
+	void Awake(Engine& engine) override;
 	glm::vec3 GetLightPosition() const;
 	glm::vec3 GetLightColor() const;
 private:
