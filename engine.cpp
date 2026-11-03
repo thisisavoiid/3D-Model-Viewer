@@ -61,11 +61,11 @@ void Engine::OnUpdate() {
 
 	Input::UpdateCursorPosition(xpos, ypos);
 
-	for (const std::shared_ptr<SceneElement> renderObj : m_objects) {
-		if (renderObj == nullptr)
+	for (const std::shared_ptr<SceneElement> sceneElem : m_objects) {
+		if (sceneElem == nullptr)
 			continue;
 
-		renderObj->Update();
+		sceneElem->Update();
 	}
 }
 
@@ -92,11 +92,11 @@ void Engine::RenderSceneElement(std::shared_ptr<SceneElement> ro)
 }
 
 void Engine::OnAwake() {
-	for (const std::shared_ptr<SceneElement> renderObj : m_objects) {
-		if (renderObj == nullptr)
+	for (const std::shared_ptr<SceneElement> sceneElem : m_objects) {
+		if (sceneElem == nullptr)
 			continue;
 
-		renderObj->Awake(*this);
+		sceneElem->Awake(*this);
 	}
 }
 

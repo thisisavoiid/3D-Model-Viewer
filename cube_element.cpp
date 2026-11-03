@@ -14,8 +14,7 @@ void CubeElement::Awake(Engine& engine) {
 
 void CubeElement::BeforeDraw() {
 	std::shared_ptr<Shader> shader = this->GetShader();
-	shader->SetVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader->SetVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.0f));
+	shader->SetVec3("uObjectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void CubeElement::Update() {

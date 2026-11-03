@@ -159,6 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="mesh.cpp" />
+    <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="scene_element.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -173,11 +174,14 @@
     <ClInclude Include="input.hpp" />
     <ClInclude Include="light_source_element.hpp" />
     <ClInclude Include="mesh.hpp" />
+    <ClInclude Include="obj_loader.hpp" />
     <ClInclude Include="scene_element.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="time.hpp" />
     <ClInclude Include="transform.hpp" />
+    <ClInclude Include="vertex.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

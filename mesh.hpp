@@ -3,10 +3,17 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+struct MeshData {
+	std::vector<float> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<float> normals;
+	std::vector<float> uvs;
+};
+
 class Mesh {
 public:
 	void Draw();
-	Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<float> normals, std::vector<float> uvs);
+	Mesh(MeshData data);
 	~Mesh();
 	unsigned int GetEboBuffer() const;
 private: 

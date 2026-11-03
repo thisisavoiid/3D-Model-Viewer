@@ -13,9 +13,9 @@ void Mesh::Draw()
 	glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 }
 
-Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<float> normals, std::vector<float> uvs)
+Mesh::Mesh(MeshData data)
 {
-    m_indexCount = indices.size();
+    m_indexCount = data.indices.size();
 
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
@@ -26,8 +26,8 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::
 
     glBufferData(
         GL_ARRAY_BUFFER,
-        vertices.size() * sizeof(float),
-        vertices.data(),
+        data.vertices.size() * sizeof(float),
+        data.vertices.data(),
         GL_STATIC_DRAW
     );
 
@@ -44,8 +44,8 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::
 
     glBufferData(
         GL_ELEMENT_ARRAY_BUFFER,
-        indices.size() * sizeof(unsigned int),
-        indices.data(),
+        data.indices.size() * sizeof(unsigned int),
+        data.indices.data(),
         GL_STATIC_DRAW
     );
 
@@ -55,8 +55,8 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::
 
     glBufferData(
         GL_ARRAY_BUFFER,
-        normals.size() * sizeof(float),
-        normals.data(),
+        data.normals.size() * sizeof(float),
+        data.normals.data(),
         GL_STATIC_DRAW
     );
 
@@ -73,8 +73,8 @@ Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, std::
 
     glBufferData(
         GL_ARRAY_BUFFER,
-        uvs.size() * sizeof(float),
-        uvs.data(),
+        data.uvs.size() * sizeof(float),
+        data.uvs.data(),
         GL_STATIC_DRAW
     );
 
