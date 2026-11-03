@@ -19,33 +19,6 @@ glm::vec3 CameraElement::GetPosition() const
     return m_transform.position;
 }
 
-void CameraElement::Move(MoveDir dir)
-{
-    glm::vec3 right = glm::normalize(glm::cross(m_up, m_forward));
-    //glm::vec3 up = glm::normalize(glm::cross(right, m_forward))
-    float step = Time::s_DeltaTime * m_speed;
-
-    switch (dir) {
-    case MoveDir::Forward:
-        m_pos += m_forward * step;
-        break;
-    case MoveDir::Back:
-        m_pos -= m_forward * step;
-        break;
-    case MoveDir::Right:
-        m_pos += right * step;
-        break;
-    case MoveDir::Left:
-        m_pos -= right * step;
-        break;
-    case MoveDir::Up:
-        m_pos += m_up * step;
-        break;
-    case MoveDir::Down:
-        m_pos -= m_up * step;
-    }
-}
-
 void CameraElement::Look(glm::vec2 delta)
 {
     m_yaw += delta.x * m_sens;
@@ -81,10 +54,10 @@ void CameraElement::Update()
     if (Input::IsKeyHeld(Key::S))
         m_transform.position += -m_forward * step;
 
-    if (Input::IsKeyHeld(Key::Space))
+    if (Input::IsKeyHeld(Key::Space) || Input::IsKeyHeld(Key::E))
         m_transform.position += m_up * step;
 
-    if (Input::IsKeyHeld(Key::LeftShift))
+    if (Input::IsKeyHeld(Key::LeftShift) || Input::IsKeyHeld(Key::Q))
         m_transform.position += -m_up * step;
 }
 

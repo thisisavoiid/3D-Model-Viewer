@@ -12,7 +12,6 @@ public:
 	glm::mat4 GetProjection(float aspect) const;
 	glm::vec3 GetPosition() const;
 
-	void Move(MoveDir dir);
 	void Look(glm::vec2 delta);
 
 	void Update() override;

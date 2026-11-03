@@ -6,6 +6,7 @@
 #include "texture.hpp"
 #include <filesystem>
 #include <vector>
+#include <utility>
 #include "window.hpp"
 #include "cube_element.hpp"
 #include "light_source_element.hpp"
@@ -127,7 +128,15 @@ int main() {
 		0.0f, 1.0f
 	};
 
+	// Testtextur im Arbeitsverzeichnis unter assets/test_texture.png ablegen.
+	const std::filesystem::path texturePath =
+		std::filesystem::current_path() / "textures" / "test.jpg";
+	const std::string texturePathString = texturePath.string();
+	auto textureUnique = std::make_unique<Texture>(texturePathString.c_str());
+	std::shared_ptr<Texture> texture = std::move(textureUnique);
+
 	auto cube = std::make_shared<CubeElement>();
+	cube->SetTexture(texture);
 	auto cubeShader = std::make_shared<Shader>(
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.vert", 
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.frag"
@@ -138,11 +147,15 @@ int main() {
 	cube->SetShader(cubeShader);
 
 	//LIGHT SOURCE
-	auto lightSource = std::make_shared<LightSourceElement>();
+	auto lightSource = std::make_shared<LightSourceElement>(
+		glm::vec3(1.0f,1.0f,1.0f)
+	);
+
 	auto lightSourceShader = std::make_shared<Shader>(
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.vert",
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.frag"
 	);
+
 	lightSource->SetMesh(mesh);
 	lightSource->SetShader(lightSourceShader);
 
@@ -151,13 +164,10 @@ int main() {
 
 	//ENGINE
 	Engine engine;
-	//engine.SetCamera(camera);
 	engine.SetWindow(window);
-
 	engine.LoadObject(cube);
 	engine.LoadObject(camera);
 	engine.LoadObject(lightSource);
-
 	engine.Run();
 
 	return 0;

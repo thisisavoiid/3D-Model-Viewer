@@ -35,6 +35,12 @@ void Engine::SetCamera(std::shared_ptr<CameraElement> camera)
 	m_camera = camera;
 }
 
+void Engine::SetLightSource(std::shared_ptr<LightSourceElement> source)
+{
+	m_lightSource = source;
+	std::cout << "Added light source! -\n";
+}
+
 /// <summary>
 /// Updates all loaded render objects and calculates delta time.
 /// </summary>
@@ -121,10 +127,9 @@ void Engine::Run()
 			if (obj == nullptr)
 				continue;
 
-			//TODO: Refactor light source fetching! This is not a good solution but it does its job for now.
-			if (auto light = std::dynamic_pointer_cast<LightSourceElement>(obj)) {
-				lightPos = light->GetLightPosition();
-				lightCol = light->GetLightColor();
+			if (m_lightSource != nullptr) {
+				lightPos = m_lightSource->GetLightPosition();
+				lightCol = m_lightSource->GetLightColor();
 			}
 
 			std::shared_ptr<Texture> texture = obj->GetTexture();
@@ -146,7 +151,10 @@ void Engine::Run()
 				shader->SetMat4("uView", view);
 				shader->SetMat4("uProj", projection);
 
-				shader->SetVec3("lightPos", lightPos);
+				if (m_lightSource != nullptr) {
+					shader->SetVec3("uLightPos", lightPos);
+					shader->SetVec3("uLightColor", lightCol);
+				}
 			}
 
 			obj->BeforeDraw();
