@@ -1,8 +1,8 @@
 #pragma once
 
-#include "render_object.hpp"
+#include "scene_element.hpp"
 
-class CubeRenderable : public RenderObject {
+class CubeElement : public SceneElement {
 public: 
 	void Update() override;
 	void BeforeDraw() override;

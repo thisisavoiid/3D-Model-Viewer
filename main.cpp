@@ -7,8 +7,8 @@
 #include <filesystem>
 #include <vector>
 #include "window.hpp"
-#include "cube_renderable.hpp"
-#include "light_source_renderable.hpp"
+#include "cube_element.hpp"
+#include "light_source_element.hpp"
 
 int main() {
 	auto window = std::make_shared<Window>(
@@ -126,7 +126,7 @@ int main() {
 		0.0f, 1.0f
 	};
 
-	auto cube = std::make_shared<CubeRenderable>();
+	auto cube = std::make_shared<CubeElement>();
 	auto cubeShader = std::make_shared<Shader>(
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.vert", 
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/cube/cube.frag"
@@ -137,7 +137,7 @@ int main() {
 	cube->SetShader(cubeShader);
 
 	//LIGHT SOURCE
-	auto lightSource = std::make_shared<LightSourceRenderable>();
+	auto lightSource = std::make_shared<LightSourceElement>();
 	auto lightSourceShader = std::make_shared<Shader>(
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.vert",
 		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.frag"

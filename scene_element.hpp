@@ -9,7 +9,7 @@
 #include "transform.hpp"
 #include "input.hpp"
 
-class RenderObject {
+class SceneElement {
 public:
 	void SetShader(std::shared_ptr<Shader> shader);
 	void SetMesh(std::shared_ptr<Mesh> mesh);
@@ -35,7 +35,7 @@ public:
 
 	glm::mat4 GetModelMatrix() const;
 
-	virtual ~RenderObject() = default;
+	virtual ~SceneElement() = default;
 private:
 	std::shared_ptr<Shader> m_shader = nullptr;
 	std::shared_ptr<Mesh> m_mesh = nullptr;

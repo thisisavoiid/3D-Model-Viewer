@@ -152,14 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="cube_renderable.cpp" />
+    <ClCompile Include="cube_element.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="light_source_renderable.cpp" />
+    <ClCompile Include="light_source_element.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="render_object.cpp" />
+    <ClCompile Include="scene_element.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="time.cpp" />
@@ -168,12 +168,12 @@
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="color.hpp" />
-    <ClInclude Include="cube_renderable.hpp" />
+    <ClInclude Include="cube_element.hpp" />
     <ClInclude Include="engine.hpp" />
     <ClInclude Include="input.hpp" />
-    <ClInclude Include="light_source_renderable.hpp" />
+    <ClInclude Include="light_source_element.hpp" />
     <ClInclude Include="mesh.hpp" />
-    <ClInclude Include="render_object.hpp" />
+    <ClInclude Include="scene_element.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="time.hpp" />

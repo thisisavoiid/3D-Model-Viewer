@@ -1,33 +1,34 @@
-#include "render_object.hpp"
+#include "scene_element.hpp"
 #include "shader.hpp"
 #include <memory>
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
-void RenderObject::SetShader(std::shared_ptr<Shader> shader)
+
+void SceneElement::SetShader(std::shared_ptr<Shader> shader)
 {
 	m_shader = shader;
 }
 
-void RenderObject::SetMesh(std::shared_ptr<Mesh> mesh)
+void SceneElement::SetMesh(std::shared_ptr<Mesh> mesh)
 {
 	m_mesh = mesh;
 }
 
-void RenderObject::SetTexture(std::shared_ptr<Texture> texture)
+void SceneElement::SetTexture(std::shared_ptr<Texture> texture)
 {
 	m_texture = texture;
 }
 
-std::shared_ptr<Mesh> RenderObject::GetMesh() const {
+std::shared_ptr<Mesh> SceneElement::GetMesh() const {
 	return m_mesh;
 }
 
-std::shared_ptr<Texture> RenderObject::GetTexture() const
+std::shared_ptr<Texture> SceneElement::GetTexture() const
 {
 	return m_texture;
 }
 
-glm::mat4 RenderObject::GetModelMatrix() const
+glm::mat4 SceneElement::GetModelMatrix() const
 {
 	glm::mat4 model(1.0f);
 
@@ -59,7 +60,7 @@ glm::mat4 RenderObject::GetModelMatrix() const
 	return model;
 }
 
-std::shared_ptr<Shader> RenderObject::GetShader() const
+std::shared_ptr<Shader> SceneElement::GetShader() const
 {
 	return m_shader;
 }

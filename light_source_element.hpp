@@ -1,8 +1,8 @@
 #pragma once
 
-#include "render_object.hpp"
+#include "scene_element.hpp"
 
-class LightSourceRenderable : public RenderObject {
+class LightSourceElement : public SceneElement {
 public:
 	void Update() override;
 	void BeforeDraw() override;

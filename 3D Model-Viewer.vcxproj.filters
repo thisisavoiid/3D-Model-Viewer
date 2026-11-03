@@ -27,7 +27,7 @@
     <ClCompile Include="shader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="render_object.cpp">
+    <ClCompile Include="scene_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="engine.cpp">
@@ -36,7 +36,7 @@
     <ClCompile Include="time.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="cube_renderable.cpp">
+    <ClCompile Include="cube_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="mesh.cpp">
@@ -51,7 +51,7 @@
     <ClCompile Include="texture.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="light_source_renderable.cpp">
+    <ClCompile Include="light_source_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,13 +68,13 @@
     <ClInclude Include="engine.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="render_object.hpp">
+    <ClInclude Include="scene_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="time.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="cube_renderable.hpp">
+    <ClInclude Include="cube_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="mesh.hpp">
@@ -92,7 +92,7 @@
     <ClInclude Include="texture.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="light_source_renderable.hpp">
+    <ClInclude Include="light_source_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

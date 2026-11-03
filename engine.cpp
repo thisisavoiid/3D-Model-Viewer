@@ -3,19 +3,20 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "time.hpp"
-#include "render_object.hpp"
+#include "scene_element.hpp"
 #include "input.hpp"
-#include "light_source_renderable.hpp"
+#include "light_source_element.hpp"
+
 /// <summary>
 /// Loads a render object into the engine for rendering.
 /// </summary>
 /// <param name="ro">
 /// The render object to add to the engine's object list.
 /// </param>
-void Engine::LoadObject(std::shared_ptr<RenderObject> ro)
+void Engine::LoadObject(std::shared_ptr<SceneElement> ro)
 {
 	m_objects.push_back(ro);
-	std::cout << "Added render object #" << m_objects.size() << "\n";
+	std::cout << "Added scene element #" << m_objects.size() << "\n";
 }
 
 /// <summary>
@@ -73,7 +74,7 @@ void Engine::OnUpdate() {
 
 	Input::UpdateCursorPosition(xpos, ypos);
 
-	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
+	for (const std::shared_ptr<SceneElement> renderObj : m_objects) {
 		if (renderObj == nullptr)
 			continue;
 
@@ -89,7 +90,7 @@ void Engine::OnUpdate() {
 /// <param name="ro">
 /// The render object to draw.
 /// </param>
-void Engine::RenderSingleObject(std::shared_ptr<RenderObject> ro)
+void Engine::RenderSingleObject(std::shared_ptr<SceneElement> ro)
 {
 	if (ro == nullptr)
 		return;
@@ -106,7 +107,7 @@ void Engine::RenderSingleObject(std::shared_ptr<RenderObject> ro)
 }
 
 void Engine::OnAwake() {
-	for (const std::shared_ptr<RenderObject> renderObj : m_objects) {
+	for (const std::shared_ptr<SceneElement> renderObj : m_objects) {
 		if (renderObj == nullptr)
 			continue;
 
@@ -144,7 +145,7 @@ void Engine::Run()
 				continue;
 
 			//TODO: Refactor light source fetching! This is not a good solution but it does its job for now.
-			if (auto light = std::dynamic_pointer_cast<LightSourceRenderable>(obj)) {
+			if (auto light = std::dynamic_pointer_cast<LightSourceElement>(obj)) {
 				lightPos = light->GetLightPosition();
 				lightCol = light->GetLightColor();
 			}

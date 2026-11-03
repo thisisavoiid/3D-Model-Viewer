@@ -1,21 +1,21 @@
-#include "cube_renderable.hpp"
+#include "cube_element.hpp"
 #include "shader.hpp"
 #include <memory>
 #include <glm/glm.hpp>
 #include "time.hpp"
 #include <iostream>
 
-void CubeRenderable::Awake() {
+void CubeElement::Awake() {
 	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
 }
 
-void CubeRenderable::BeforeDraw() {
+void CubeElement::BeforeDraw() {
 	std::shared_ptr<Shader> shader = this->GetShader();
 	shader->SetVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader->SetVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-void CubeRenderable::Update() {
+void CubeElement::Update() {
 	m_transform.rotation.y += (m_speed * Time::s_DeltaTime) * Input::IsKeyHeld(Key::V);
 
 	if (Input::IsKeyPressed(Key::MouseX2))
