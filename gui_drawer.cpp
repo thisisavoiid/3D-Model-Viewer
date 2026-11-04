@@ -15,7 +15,7 @@ void GUIDrawer::PrepareNewFrame()
 
 void GUIDrawer::BuildGUI(ImGuiIO& io)
 {
-	ImGui::Begin("Debug");
+	ImGui::Begin("Model Import");
 
 	if (ImGui::Button("Select .OBJ")) {
 		IGFD::FileDialogConfig config;
