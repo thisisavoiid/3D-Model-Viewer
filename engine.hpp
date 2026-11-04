@@ -20,7 +20,7 @@ public:
 private:
 	double m_lastUpdate = 0.0;
 	std::vector<std::shared_ptr<SceneElement>> m_objects;
-	std::shared_ptr<LightSourceElement> m_lightSource;
+	std::shared_ptr<LightSourceElement> m_lightSource = nullptr;
 	std::shared_ptr<Window> m_window = nullptr;
 	std::shared_ptr<CameraElement> m_camera = nullptr;
 	void OnUpdate();

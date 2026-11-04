@@ -31,6 +31,10 @@ void LightSourceElement::BeforeDraw()
 	shader->SetVec3("uLightColor", m_lightColor);
 }
 
+void LightSourceElement::AfterDraw()
+{
+}
+
 /// <summary>
 /// Initializes the light transform and registers the light with the engine.
 /// </summary>

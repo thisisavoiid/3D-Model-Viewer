@@ -20,9 +20,12 @@
 /// <param name="ro">
 /// The render object to add to the engine's object list.
 /// </param>
-void Engine::LoadObject(std::shared_ptr<SceneElement> ro)
+void Engine::LoadObject(std::shared_ptr<SceneElement> sceneElem)
 {
-	m_objects.push_back(ro);
+	if (sceneElem == nullptr)
+		return;
+
+	m_objects.push_back(sceneElem);
 	std::cout << std::format("Added scene element #{} -\n", m_objects.size());
 }
 
@@ -34,6 +37,9 @@ void Engine::LoadObject(std::shared_ptr<SceneElement> ro)
 /// </param>
 void Engine::SetWindow(std::shared_ptr<Window> window)
 {
+	if (window == nullptr)
+		return;
+
 	m_window = window;
 }
 
@@ -56,8 +62,10 @@ void Engine::SetCamera(std::shared_ptr<CameraElement> camera)
 /// </param>
 void Engine::SetLightSource(std::shared_ptr<LightSourceElement> source)
 {
+	if (source == nullptr)
+		return;
+
 	m_lightSource = source;
-	std::cout << "Added light source! -\n";
 }
 
 /// <summary>
@@ -192,7 +200,7 @@ void Engine::Run()
 			if (shader != nullptr)
 			{
 				shader->Use();
-				shader->SetMat4("uView", view);
+				shader->SetMat4("uView", obj->GetViewMatrix(view));
 				shader->SetMat4("uProj", projection);
 
 				if (m_lightSource != nullptr) {
@@ -209,6 +217,8 @@ void Engine::Run()
 			obj->BeforeDraw();
 
 			RenderSceneElement(obj);
+
+			obj->AfterDraw();
 		}
 
 		OnUpdate();

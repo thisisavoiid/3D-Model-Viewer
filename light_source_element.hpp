@@ -9,6 +9,7 @@ class LightSourceElement : public SceneElement, public std::enable_shared_from_t
 public:
 	void Update() override;
 	void BeforeDraw() override;
+	void AfterDraw() override;
 	void Awake(Engine& engine) override;
 	LightSourceElement(glm::vec3 color);
 	glm::vec3 GetLightPosition() const;

@@ -23,6 +23,7 @@ public:
 	void Update() override;
 	void Awake(Engine& engine) override;
 	void BeforeDraw() override;
+	void AfterDraw() override;
 
 private:
 	glm::vec3 m_pos{ 0.0f,0.0f,3.0f };

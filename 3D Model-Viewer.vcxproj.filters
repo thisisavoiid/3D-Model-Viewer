@@ -30,6 +30,9 @@
     <ClCompile Include="scene_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="skybox_element.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="engine.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -84,6 +87,12 @@
     <ClCompile Include="imgui_initializer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="cubemap.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_drawer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.hpp">
@@ -99,6 +108,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="scene_element.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="time.hpp">
@@ -138,6 +150,18 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="imgui_initializer.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="demo_element.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="gui_drawer.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="cubemap.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="model_import_selection.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

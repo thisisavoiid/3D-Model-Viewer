@@ -17,12 +17,18 @@
 void DemoElement::Awake(Engine& engine) {
 }
 
+void DemoElement::AfterDraw()
+{
+}
+
 /// <summary>
 /// Sets the object color before drawing the demo element.
 /// </summary>
 void DemoElement::BeforeDraw() {
 	std::shared_ptr<Shader> shader = this->GetShader();
-	shader->SetVec3("uObjectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
+	if (shader != nullptr)
+		shader->SetVec3("uObjectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 /// <summary>

@@ -28,7 +28,7 @@ public:
 	/// Called just before drawing this render object. Override in derived classes.
 	/// </summary>
 	virtual void BeforeDraw() = 0;
-
+	virtual void AfterDraw();
 	virtual void Awake(Engine& engine) = 0;
 
 	Transform m_transform;
@@ -38,7 +38,7 @@ public:
 	std::shared_ptr<Texture> GetTexture() const;
 
 	glm::mat4 GetModelMatrix() const;
-
+	virtual glm::mat4 GetViewMatrix(const glm::mat4& view) const;
 	virtual ~SceneElement() = default;
 private:
 	std::shared_ptr<Shader> m_shader = nullptr;

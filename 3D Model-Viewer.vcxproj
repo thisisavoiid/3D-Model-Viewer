@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera_element.cpp" />
+    <ClCompile Include="cubemap.cpp" />
     <ClCompile Include="demo_element.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="external\imgui\imgui.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="scene_element.cpp" />
+    <ClCompile Include="skybox_element.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="time.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="demo_element.hpp" />
     <ClInclude Include="engine.hpp" />
     <ClInclude Include="gui_drawer.hpp" />
+    <ClInclude Include="cubemap.hpp" />
     <ClInclude Include="model_import_selection.hpp" />
     <ClInclude Include="imgui_initializer.hpp" />
     <ClInclude Include="external\ImGuiFileDialog\ImGuiFileDialog.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="obj_loader.hpp" />
     <ClInclude Include="scene_element.hpp" />
+    <ClInclude Include="skybox_element.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.hpp" />

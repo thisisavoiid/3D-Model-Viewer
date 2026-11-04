@@ -108,3 +108,7 @@ void CameraElement::Awake(Engine& engine)
 void CameraElement::BeforeDraw()
 {
 }
+
+void CameraElement::AfterDraw()
+{
+}

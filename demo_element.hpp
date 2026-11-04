@@ -10,6 +10,7 @@ class DemoElement : public SceneElement {
 public: 
 	void Update() override;
 	void BeforeDraw() override;
+	void AfterDraw() override;
 	void Awake(Engine& engine) override;
 
 private:
