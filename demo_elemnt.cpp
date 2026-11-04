@@ -1,4 +1,4 @@
-#include "cube_element.hpp"
+#include "demo_element.hpp"
 #include "shader.hpp"
 #include <memory>
 #include <glm/glm.hpp>
@@ -8,15 +8,15 @@
 #include <string>
 #include <format>
 
-void CubeElement::Awake(Engine& engine) {
+void DemoElement::Awake(Engine& engine) {
 }
 
-void CubeElement::BeforeDraw() {
+void DemoElement::BeforeDraw() {
 	std::shared_ptr<Shader> shader = this->GetShader();
 	shader->SetVec3("uObjectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
-void CubeElement::Update() {
+void DemoElement::Update() {
 	m_transform.rotation.y += (m_speed * Time::s_DeltaTime) * Input::IsKeyHeld(Key::V);
 
 	if (Input::IsKeyPressed(Key::MouseX2))

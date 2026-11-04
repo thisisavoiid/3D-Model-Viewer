@@ -9,9 +9,10 @@
 #include <string>
 #include <format>
 #include <imgui.h>
-#include <imgui_impl_opengl3.h>
-#include <imgui_impl_glfw.h>
 #include "gui_drawer.hpp"
+#include "obj_loader.hpp"
+#include "demo_element.hpp"
+#include "model_import_selection.hpp"
 
 /// <summary>
 /// Loads a render object into the engine for rendering.
@@ -130,6 +131,7 @@ void Engine::Run()
 	glEnable(GL_DEPTH_TEST);
 
 	ImGuiIO& io = ImGui::GetIO();
+	ObjLoader loader;
 
 	OnAwake();
 
@@ -197,6 +199,23 @@ void Engine::Run()
 		OnUpdate();
 
 		GUIDrawer::RenderGUI();
+
+		if (std::optional<ModelImportSelection> importData = GUIDrawer::ConsumeLoadRequestData())
+		{
+			MeshData meshData = loader.LoadFromOBJ(importData->objPath);
+
+			std::shared_ptr<Shader> shaderPtr = std::make_shared<Shader>(importData->vertPath, importData->fragPath);
+			std::shared_ptr<Mesh> meshPtr = std::make_shared<Mesh>(meshData);
+			std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(importData->texturePath);
+
+			std::shared_ptr<DemoElement> demoSceneElem = std::make_shared<DemoElement>();
+
+			demoSceneElem->SetMesh(meshPtr);
+			demoSceneElem->SetShader(shaderPtr);
+			demoSceneElem->SetTexture(texturePtr);
+
+			LoadObject(demoSceneElem);
+		}
 
 		glfwSwapBuffers(m_window->GetGlfwWindowInstance());
 		glfwPollEvents();

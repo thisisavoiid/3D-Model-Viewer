@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <filesystem>
 
 class Shader {
 public:
@@ -13,7 +14,7 @@ public:
 	void SetVec3(const char* field, const glm::vec3& value);
 	void SetMat4(const char* field, const glm::mat4& value);
 	void SetInt(const char* field, int value);
-	Shader(const char* vertexPath, const char* fragmentPath);
+	Shader(std::filesystem::path vertexPath, std::filesystem::path fragmentPath);
 	~Shader();
 
 private:

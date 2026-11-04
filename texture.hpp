@@ -1,9 +1,11 @@
 #pragma once
 
+#include <filesystem>
+
 class Texture {
 public:
 	unsigned m_id;
-	Texture(const char* path);
+	Texture(std::filesystem::path path);
 	~Texture();
 	void Use();
 };

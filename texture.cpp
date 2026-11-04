@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-Texture::Texture(const char* path)
+Texture::Texture(std::filesystem::path path)
 {
 	glGenTextures(1, &m_id);
 	glBindTexture(GL_TEXTURE_2D, m_id);
@@ -18,7 +18,7 @@ Texture::Texture(const char* path)
 	stbi_set_flip_vertically_on_load(true);
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 4); 
+	unsigned char* data = stbi_load(path.string().c_str(), &width, &height, &nrChannels, 4);
 
 	std::cout << "Loading texture at path " << path << " (" << width << "x" << height << ") with " << nrChannels << " channels... -\n";
 

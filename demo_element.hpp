@@ -3,7 +3,7 @@
 #include "scene_element.hpp"
 #include "engine.hpp"
 
-class CubeElement : public SceneElement {
+class DemoElement : public SceneElement {
 public: 
 	void Update() override;
 	void BeforeDraw() override;

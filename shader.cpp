@@ -70,12 +70,12 @@ void Shader::SetInt(const char* field, int value)
 /// <param name="fragmentPath">
 /// Path to the fragment shader source file.
 /// </param>
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+Shader::Shader(std::filesystem::path vertexPath, std::filesystem::path fragmentPath)
 {
 	m_id = glCreateProgram();
 
-	unsigned v = Build(GL_VERTEX_SHADER, vertexPath);
-	unsigned f = Build(GL_FRAGMENT_SHADER, fragmentPath);
+	unsigned v = Build(GL_VERTEX_SHADER, vertexPath.string().c_str());
+	unsigned f = Build(GL_FRAGMENT_SHADER, fragmentPath.string().c_str());
 
 	glAttachShader(m_id, v);
 	glAttachShader(m_id, f);
