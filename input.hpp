@@ -200,6 +200,8 @@ public:
     static void UpdateKeyInput();
     static void UpdateCursorPosition(double xpos, double ypos);
     static void SetCursorMode(int mode);
+    static int GetCursorMode();
+    static void SetCursorPosition(double xpos, double ypos);
 	static bool IsKeyHeld(Key key);
     static bool IsKeyReleased(Key key);
     static bool IsKeyPressed(Key key);

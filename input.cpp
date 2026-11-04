@@ -33,11 +33,17 @@ void Input::SetCursorMode(int mode)
 	glfwSetInputMode(currentWin, GLFW_CURSOR, mode);
 }
 
-//void Input::SetCursorMode(CursorMode mode)
-//{
-//	GLFWwindow* currentWin = glfwGetCurrentContext();
-//	glfwSetInputMode(currentWin, GLFW_CURSOR, static_cast<int>(mode));
-//}
+int Input::GetCursorMode()
+{
+	GLFWwindow* currentWin = glfwGetCurrentContext();
+	return glfwGetInputMode(currentWin, GLFW_CURSOR);
+}
+
+void Input::SetCursorPosition(double xpos, double ypos)
+{
+	GLFWwindow* currentWin = glfwGetCurrentContext();
+	glfwSetCursorPos(currentWin, xpos, ypos);
+}
 
 bool Input::IsKeyHeld(Key key)
 {

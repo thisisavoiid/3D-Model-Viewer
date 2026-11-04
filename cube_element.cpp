@@ -9,7 +9,6 @@
 #include <format>
 
 void CubeElement::Awake(Engine& engine) {
-	Input::SetCursorMode(GLFW_CURSOR_DISABLED);
 }
 
 void CubeElement::BeforeDraw() {

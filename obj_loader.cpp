@@ -84,23 +84,6 @@ MeshData ObjLoader::LoadFromOBJ(const std::filesystem::path& path)
 		data.normals.push_back(objFinalVertices[i].normal.x);
 		data.normals.push_back(objFinalVertices[i].normal.y);
 		data.normals.push_back(objFinalVertices[i].normal.z);
-
-		std::cout
-			<< "Position: "
-			<< objFinalVertices[i].position.x << ", "
-			<< objFinalVertices[i].position.y << ", "
-			<< objFinalVertices[i].position.z << "\n"
-
-			<< "UV: "
-			<< objFinalVertices[i].uvCoords.x << ", "
-			<< objFinalVertices[i].uvCoords.y << "\n"
-
-			<< "Normal: "
-			<< objFinalVertices[i].normal.x << ", "
-			<< objFinalVertices[i].normal.y << ", "
-			<< objFinalVertices[i].normal.z << "\n"
-
-			<< "--------------------\n";
 	}
 
     return data;

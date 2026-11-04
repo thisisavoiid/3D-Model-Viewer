@@ -71,15 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)external/open_gl/include</IncludePath>
     <LibraryPath>$(ProjectDir)external/open_gl/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>false</VcpkgEnableManifest>
   </PropertyGroup>
-  <PropertyGroup>
-    <IncludePath>$(ProjectDir)external\glm;$(ProjectDir)external\open_gl\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\open_gl\include;$(ProjectDir)external\glm;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -154,6 +155,14 @@
     <ClCompile Include="camera_element.cpp" />
     <ClCompile Include="cube_element.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="external\imgui\imgui.cpp" />
+    <ClCompile Include="external\imgui\imgui_demo.cpp" />
+    <ClCompile Include="external\imgui\imgui_draw.cpp" />
+    <ClCompile Include="external\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="external\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="external\imgui\imgui_tables.cpp" />
+    <ClCompile Include="external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="imgui_initializer.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light_source_element.cpp" />
     <ClCompile Include="main.cpp" />
@@ -171,6 +180,8 @@
     <ClInclude Include="color.hpp" />
     <ClInclude Include="cube_element.hpp" />
     <ClInclude Include="engine.hpp" />
+    <ClInclude Include="gui_drawer.hpp" />
+    <ClInclude Include="imgui_initializer.hpp" />
     <ClInclude Include="input.hpp" />
     <ClInclude Include="light_source_element.hpp" />
     <ClInclude Include="mesh.hpp" />

@@ -1,5 +1,3 @@
-#include <glad/glad.h>     
-#include <GLFW/glfw3.h>    
 #include "engine.hpp"
 #include <memory>
 #include "texture.hpp"
@@ -9,6 +7,7 @@
 #include "camera_element.hpp"
 #include "obj_loader.hpp"
 #include "mesh.hpp"
+#include "imgui_initializer.hpp"
 
 int main() {
 
@@ -17,6 +16,9 @@ int main() {
 		1200,
 		900
 	);
+
+	ImGuiInitializer imgui;
+	imgui.Initialize(window);
 
 	std::filesystem::path objPath = R"(C:\Users\huber\Downloads\Cube OBJ\cube.obj)";
 
@@ -63,6 +65,8 @@ int main() {
 	engine.LoadObject(camera);
 	engine.LoadObject(lightSource);
 	engine.Run();
+
+	imgui.Shutdown();
 
 	return 0;
 

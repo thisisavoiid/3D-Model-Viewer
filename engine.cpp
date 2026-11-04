@@ -8,6 +8,10 @@
 #include "camera_element.hpp"
 #include <string>
 #include <format>
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_glfw.h>
+#include "gui_drawer.hpp"
 
 /// <summary>
 /// Loads a render object into the engine for rendering.
@@ -59,7 +63,23 @@ void Engine::OnUpdate() {
 	double xpos, ypos;
 	glfwGetCursorPos(glfwWindowInstance, &xpos, &ypos);
 
-	Input::UpdateCursorPosition(xpos, ypos);
+	int currentCursorMode = Input::GetCursorMode();
+
+	if (currentCursorMode == GLFW_CURSOR_DISABLED)
+		Input::UpdateCursorPosition(xpos, ypos);
+
+	if (Input::IsKeyPressed(Key::Escape)) {
+
+		int width, height;
+		glfwGetWindowSize(glfwWindowInstance, &width, &height);
+
+		Input::SetCursorPosition(width / 2.0, height / 2.0);
+
+		if (currentCursorMode == GLFW_CURSOR_DISABLED)
+			Input::SetCursorMode(GLFW_CURSOR_NORMAL);
+		else if (currentCursorMode == GLFW_CURSOR_NORMAL)
+			Input::SetCursorMode(GLFW_CURSOR_DISABLED);
+	}
 
 	for (const std::shared_ptr<SceneElement> sceneElem : m_objects) {
 		if (sceneElem == nullptr)
@@ -109,12 +129,22 @@ void Engine::Run()
 	m_lastUpdate = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
+	ImGuiIO& io = ImGui::GetIO();
+
 	OnAwake();
 
 	glm::vec3 lightPos(0.0f);
 	glm::vec3 lightCol(1.0f);
 
 	while (!glfwWindowShouldClose(glfwWindowInstance)) {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		ImGui::Begin("Debug");
+		ImGui::Text("FPS: %.1f", io.Framerate);
+		ImGui::End();
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		int width, height;
@@ -170,6 +200,9 @@ void Engine::Run()
 		}
 
 		OnUpdate();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(m_window->GetGlfwWindowInstance());
 		glfwPollEvents();
