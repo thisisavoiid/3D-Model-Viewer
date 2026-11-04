@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Quelldateien">
@@ -72,10 +72,13 @@
     <ClCompile Include="external\imgui\imgui.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="external\imgui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="external\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="external\imgui\imgui_impl_glfw.cpp">
+    <ClCompile Include="external\ImGuiFileDialog\ImGuiFileDialog.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="external\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="imgui_initializer.cpp">
@@ -129,6 +132,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="obj_loader.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="external\ImGuiFileDialog\ImGuiFileDialog.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="external\ImGuiFileDialog\ImGuiFileDialogConfig.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="imgui_initializer.hpp">

@@ -137,13 +137,8 @@ void Engine::Run()
 	glm::vec3 lightCol(1.0f);
 
 	while (!glfwWindowShouldClose(glfwWindowInstance)) {
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		ImGui::Begin("Debug");
-		ImGui::Text("FPS: %.1f", io.Framerate);
-		ImGui::End();
+		GUIDrawer::PrepareNewFrame();
+		GUIDrawer::BuildGUI(io);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -201,8 +196,7 @@ void Engine::Run()
 
 		OnUpdate();
 
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		GUIDrawer::RenderGUI();
 
 		glfwSwapBuffers(m_window->GetGlfwWindowInstance());
 		glfwPollEvents();

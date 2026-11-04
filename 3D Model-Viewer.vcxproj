@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\open_gl\include;$(ProjectDir)external\glm;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\open_gl\include;$(ProjectDir)external\glm;$(ProjectDir)external\imgui;$(ProjectDir)external\imgui\backends;$(ProjectDir)external\ImGuiFileDialog;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -162,6 +162,8 @@
     <ClCompile Include="external\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="external\imgui\imgui_tables.cpp" />
     <ClCompile Include="external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="external\ImGuiFileDialog\ImGuiFileDialog.cpp" />
+    <ClCompile Include="gui_drawer.cpp" />
     <ClCompile Include="imgui_initializer.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light_source_element.cpp" />
@@ -182,6 +184,8 @@
     <ClInclude Include="engine.hpp" />
     <ClInclude Include="gui_drawer.hpp" />
     <ClInclude Include="imgui_initializer.hpp" />
+    <ClInclude Include="external\ImGuiFileDialog\ImGuiFileDialog.h" />
+    <ClInclude Include="external\ImGuiFileDialog\ImGuiFileDialogConfig.h" />
     <ClInclude Include="input.hpp" />
     <ClInclude Include="light_source_element.hpp" />
     <ClInclude Include="mesh.hpp" />
