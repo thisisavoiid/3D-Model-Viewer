@@ -3,6 +3,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+/// <summary>
+/// Draws the mesh using its configured OpenGL vertex array and index buffer.
+/// </summary>
 void Mesh::Draw()
 {
     glBindVertexArray(m_vao);
@@ -13,6 +16,12 @@ void Mesh::Draw()
 	glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 }
 
+/// <summary>
+/// Creates OpenGL buffers from the supplied mesh data.
+/// </summary>
+/// <param name="data">
+/// The vertex attributes and indices used to create the mesh.
+/// </param>
 Mesh::Mesh(MeshData data)
 {
     m_indexCount = data.indices.size();
@@ -86,6 +95,9 @@ Mesh::Mesh(MeshData data)
     glEnableVertexAttribArray(2);
 }
 
+/// <summary>
+/// Releases the OpenGL buffers owned by the mesh.
+/// </summary>
 Mesh::~Mesh()
 {
     glDeleteVertexArrays(1, &m_vao);
@@ -95,6 +107,12 @@ Mesh::~Mesh()
     glDeleteBuffers(1, &m_indicesEbo);
 }
 
+/// <summary>
+/// Gets the OpenGL element buffer object identifier.
+/// </summary>
+/// <returns>
+/// The element buffer object identifier.
+/// </returns>
 unsigned int Mesh::GetEboBuffer() const
 {
 	return m_indicesEbo;

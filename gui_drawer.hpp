@@ -5,6 +5,9 @@
 #include <optional>
 #include "model_import_selection.hpp"
 
+/// <summary>
+/// Builds and renders the application's graphical user interface.
+/// </summary>
 class GUIDrawer {
 public:
 	static void PrepareNewFrame();

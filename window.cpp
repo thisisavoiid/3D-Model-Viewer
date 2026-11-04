@@ -1,6 +1,15 @@
 #include "window.hpp"
 #include <iostream>
 
+/// <summary>
+/// Updates the OpenGL viewport after the window size changes.
+/// </summary>
+/// <param name="w">
+/// The new framebuffer width.
+/// </param>
+/// <param name="h">
+/// The new framebuffer height.
+/// </param>
 void Window::OnResize(GLFWwindow*, int w, int h)
 {
 	glViewport(0, 0, w, h);

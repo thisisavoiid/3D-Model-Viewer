@@ -6,6 +6,9 @@
 #include <optional>
 #include "model_import_selection.hpp"
 
+/// <summary>
+/// Starts a new ImGui frame for the configured rendering backends.
+/// </summary>
 void GUIDrawer::PrepareNewFrame()
 {
 	ImGui_ImplOpenGL3_NewFrame();
@@ -13,6 +16,12 @@ void GUIDrawer::PrepareNewFrame()
 	ImGui::NewFrame();
 }
 
+/// <summary>
+/// Builds the model import interface and records the user's selections.
+/// </summary>
+/// <param name="io">
+/// The ImGui input and configuration state for the current frame.
+/// </param>
 void GUIDrawer::BuildGUI(ImGuiIO& io)
 {
 	ImGui::Begin("Model Import");
@@ -88,12 +97,21 @@ void GUIDrawer::BuildGUI(ImGuiIO& io)
 	ImGui::End();
 }
 
+/// <summary>
+/// Renders the ImGui draw data using the configured OpenGL backend.
+/// </summary>
 void GUIDrawer::RenderGUI()
 {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+/// <summary>
+/// Returns and clears the pending model import request.
+/// </summary>
+/// <returns>
+/// The pending import data, or an empty optional if no request is available.
+/// </returns>
 std::optional<ModelImportSelection> GUIDrawer::ConsumeLoadRequestData()
 {
 	std::optional<ModelImportSelection> request = m_loadRequestData;
@@ -110,6 +128,9 @@ std::optional<ModelImportSelection> GUIDrawer::ConsumeLoadRequestData()
 	return request;
 }
 
+/// <summary>
+/// Processes the file dialogs used to select model resources.
+/// </summary>
 void GUIDrawer::DrawFileDialogs()
 {
 	IGFD::FileDialog* context = ImGuiFileDialog::Instance();

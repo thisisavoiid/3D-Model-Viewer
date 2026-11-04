@@ -5,6 +5,12 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+/// <summary>
+/// Loads an image from disk and creates an OpenGL texture from it.
+/// </summary>
+/// <param name="path">
+/// The path to the image file.
+/// </param>
 Texture::Texture(std::filesystem::path path)
 {
 	glGenTextures(1, &m_id);
@@ -62,11 +68,17 @@ Texture::Texture(std::filesystem::path path)
 	stbi_image_free(data);
 }
 
+/// <summary>
+/// Releases the OpenGL texture.
+/// </summary>
 Texture::~Texture()
 {
 	glDeleteTextures(1, &m_id);
 }
 
+/// <summary>
+/// Activates this texture for subsequent rendering calls.
+/// </summary>
 void Texture::Use()
 {
 	glActiveTexture(GL_TEXTURE0);

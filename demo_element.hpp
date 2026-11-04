@@ -3,6 +3,9 @@
 #include "scene_element.hpp"
 #include "engine.hpp"
 
+/// <summary>
+/// Represents the demo scene element used to demonstrate movement and rotation.
+/// </summary>
 class DemoElement : public SceneElement {
 public: 
 	void Update() override;

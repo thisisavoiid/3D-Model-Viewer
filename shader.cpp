@@ -56,6 +56,15 @@ void Shader::SetMat4(const char* field, const glm::mat4& value)
 	glUniformMatrix4fv(glGetUniformLocation(m_id, field), 1, GL_FALSE, &value[0][0]);
 }
 
+/// <summary>
+/// Sets an integer uniform value in the shader.
+/// </summary>
+/// <param name="field">
+/// The name of the uniform variable.
+/// </param>
+/// <param name="value">
+/// The integer value to assign to the uniform.
+/// </param>
 void Shader::SetInt(const char* field, int value)
 {
 	glUniform1i(glGetUniformLocation(m_id, field), value);
@@ -99,6 +108,9 @@ Shader::Shader(std::filesystem::path vertexPath, std::filesystem::path fragmentP
 	glDeleteShader(f);
 }
 
+/// <summary>
+/// Deletes the OpenGL shader program.
+/// </summary>
 Shader::~Shader()
 {
 	glDeleteProgram(m_id);

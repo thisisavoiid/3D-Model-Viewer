@@ -5,6 +5,9 @@
 #include <glm/glm.hpp>
 #include <filesystem>
 
+/// <summary>
+/// Manages an OpenGL shader program and its uniform values.
+/// </summary>
 class Shader {
 public:
 	unsigned m_id;

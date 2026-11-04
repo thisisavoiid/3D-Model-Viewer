@@ -7,6 +7,9 @@
 #include "camera_element.hpp"
 #include "light_source_element.hpp"
 
+/// <summary>
+/// Coordinates scene elements, rendering, input updates, and the application loop.
+/// </summary>
 class Engine {
 public:
 	void LoadObject(std::shared_ptr<SceneElement> ro);

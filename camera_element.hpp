@@ -2,10 +2,16 @@
 #include <glm/glm.hpp>
 #include "scene_element.hpp"
 
+/// <summary>
+/// Represents the movement directions available to the camera.
+/// </summary>
 enum class MoveDir {
 	Forward, Back, Left, Right, Up, Down
 };
 
+/// <summary>
+/// Represents a camera scene element used to calculate the view and projection matrices.
+/// </summary>
 class CameraElement : public SceneElement, public std::enable_shared_from_this<CameraElement>{
 public:
 	glm::mat4 GetView() const;

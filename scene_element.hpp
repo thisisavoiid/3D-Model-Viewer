@@ -10,6 +10,9 @@
 
 class Engine;
 
+/// <summary>
+/// Represents a renderable element in the scene.
+/// </summary>
 class SceneElement {
 public:
 	void SetShader(std::shared_ptr<Shader> shader);

@@ -2,6 +2,9 @@
 
 #include "scene_element.hpp"
 
+/// <summary>
+/// Represents a light source scene element with a position and color.
+/// </summary>
 class LightSourceElement : public SceneElement, public std::enable_shared_from_this<LightSourceElement> {
 public:
 	void Update() override;

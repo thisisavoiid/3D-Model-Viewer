@@ -4,21 +4,48 @@
 #include "engine.hpp"
 #include "input.hpp"
 
+/// <summary>
+/// Calculates the view matrix from the camera's position and orientation.
+/// </summary>
+/// <returns>
+/// The camera view matrix.
+/// </returns>
 glm::mat4 CameraElement::GetView() const
 {
     return glm::lookAt(m_transform.position, m_transform.position + m_forward, m_up);
 }
 
+/// <summary>
+/// Calculates the perspective projection matrix for the specified aspect ratio.
+/// </summary>
+/// <param name="aspect">
+/// The viewport aspect ratio.
+/// </param>
+/// <returns>
+/// The camera projection matrix.
+/// </returns>
 glm::mat4 CameraElement::GetProjection(float aspect) const
 {
     return glm::perspective(glm::radians(m_fov), aspect, 0.1f, 100.0f);
 }
 
+/// <summary>
+/// Gets the current camera position.
+/// </summary>
+/// <returns>
+/// The camera position.
+/// </returns>
 glm::vec3 CameraElement::GetPosition() const
 {
     return m_transform.position;
 }
 
+/// <summary>
+/// Updates the camera orientation using cursor movement.
+/// </summary>
+/// <param name="delta">
+/// The cursor movement since the previous update.
+/// </param>
 void CameraElement::Look(glm::vec2 delta)
 {
     m_yaw += delta.x * m_sens;
@@ -35,6 +62,9 @@ void CameraElement::Look(glm::vec2 delta)
     m_forward = glm::normalize(modifiedForward);
 }
 
+/// <summary>
+/// Updates the camera orientation and movement for the current frame.
+/// </summary>
 void CameraElement::Update()
 {
     Look(Input::GetCursorDelta());
@@ -61,11 +91,20 @@ void CameraElement::Update()
         m_transform.position += -m_up * step;
 }
 
+/// <summary>
+/// Registers this camera with the engine during scene initialization.
+/// </summary>
+/// <param name="engine">
+/// The engine that owns the scene.
+/// </param>
 void CameraElement::Awake(Engine& engine)
 {
     engine.SetCamera(shared_from_this());
 }
 
+/// <summary>
+/// Performs camera-specific preparation before drawing.
+/// </summary>
 void CameraElement::BeforeDraw()
 {
 }

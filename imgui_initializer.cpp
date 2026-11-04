@@ -5,6 +5,12 @@
 #include "window.hpp"
 #include <memory>
 
+/// <summary>
+/// Initializes ImGui and connects it to the application window and OpenGL.
+/// </summary>
+/// <param name="window">
+/// The application window used by ImGui.
+/// </param>
 void ImGuiInitializer::Initialize(std::shared_ptr<Window> window)
 {
 	IMGUI_CHECKVERSION();
@@ -18,6 +24,9 @@ void ImGuiInitializer::Initialize(std::shared_ptr<Window> window)
 	ImGui_ImplOpenGL3_Init("#version 330");
 }
 
+/// <summary>
+/// Shuts down the ImGui backends and destroys the ImGui context.
+/// </summary>
 void ImGuiInitializer::Shutdown()
 {
 	ImGui_ImplOpenGL3_Shutdown();

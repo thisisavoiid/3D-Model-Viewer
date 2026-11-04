@@ -3,6 +3,9 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+/// <summary>
+/// Stores the vertex attributes and indices used to construct a mesh.
+/// </summary>
 struct MeshData {
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
@@ -10,6 +13,9 @@ struct MeshData {
 	std::vector<float> uvs;
 };
 
+/// <summary>
+/// Manages the OpenGL buffers required to draw a mesh.
+/// </summary>
 class Mesh {
 public:
 	void Draw();

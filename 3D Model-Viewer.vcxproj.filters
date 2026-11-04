@@ -36,7 +36,7 @@
     <ClCompile Include="time.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="cube_element.cpp">
+    <ClCompile Include="demo_element.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="mesh.cpp">
@@ -86,10 +86,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.hpp">
+    <ClInclude Include="window.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Color.hpp">
+    <ClInclude Include="color.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="shader.hpp">
@@ -102,9 +102,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="time.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="cube_element.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="mesh.hpp">

@@ -153,7 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera_element.cpp" />
-    <ClCompile Include="demo_elemnt.cpp" />
+    <ClCompile Include="demo_element.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="external\imgui\imgui.cpp" />
     <ClCompile Include="external\imgui\imgui_demo.cpp" />

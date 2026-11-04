@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// Stores red, green, blue, and alpha color components.
+/// </summary>
 struct Color {
     float r, g, b, a;
 

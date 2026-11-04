@@ -4,6 +4,15 @@
 #include <iostream>
 #include "vertex.hpp"
 
+/// <summary>
+/// Loads vertex, texture, normal, and index data from an OBJ file.
+/// </summary>
+/// <param name="path">
+/// The path to the OBJ file.
+/// </param>
+/// <returns>
+/// The mesh data parsed from the file, or empty mesh data if the file cannot be opened.
+/// </returns>
 MeshData ObjLoader::LoadFromOBJ(const std::filesystem::path& path)
 {
 	MeshData data;

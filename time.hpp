@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// Stores timing values shared by the application.
+/// </summary>
 class Time {
 public:
 	Time() = delete;

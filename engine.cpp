@@ -37,11 +37,23 @@ void Engine::SetWindow(std::shared_ptr<Window> window)
 	m_window = window;
 }
 
+/// <summary>
+/// Sets the camera used for rendering the scene.
+/// </summary>
+/// <param name="camera">
+/// The camera to use for rendering.
+/// </param>
 void Engine::SetCamera(std::shared_ptr<CameraElement> camera)
 {
 	m_camera = camera;
 }
 
+/// <summary>
+/// Sets the light source used when rendering scene elements.
+/// </summary>
+/// <param name="source">
+/// The light source to use for rendering.
+/// </param>
 void Engine::SetLightSource(std::shared_ptr<LightSourceElement> source)
 {
 	m_lightSource = source;
@@ -112,6 +124,9 @@ void Engine::RenderSceneElement(std::shared_ptr<SceneElement> ro)
 		ro->GetMesh()->Draw();
 }
 
+/// <summary>
+/// Invokes the initialization callback for every loaded scene element.
+/// </summary>
 void Engine::OnAwake() {
 	for (const std::shared_ptr<SceneElement> sceneElem : m_objects) {
 		if (sceneElem == nullptr)

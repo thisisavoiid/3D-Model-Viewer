@@ -7,6 +7,12 @@
 #include "mesh.hpp"
 #include "imgui_initializer.hpp"
 
+/// <summary>
+/// Creates the application objects, starts the engine, and shuts down ImGui.
+/// </summary>
+/// <returns>
+/// Zero after the application exits successfully.
+/// </returns>
 int main() {
 
 	auto window = std::make_shared<Window>(

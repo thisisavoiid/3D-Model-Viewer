@@ -4,6 +4,9 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 
+/// <summary>
+/// Represents keyboard and mouse keys supported by the input system.
+/// </summary>
 enum class Key : int
 {
     // Mouse buttons
@@ -194,6 +197,9 @@ enum class Key : int
     OemClear = VK_OEM_CLEAR
 };
 
+/// <summary>
+/// Provides static access to keyboard, mouse, and cursor input state.
+/// </summary>
 class Input {
 public:
     Input() = delete;

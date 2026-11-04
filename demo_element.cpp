@@ -8,14 +8,26 @@
 #include <string>
 #include <format>
 
+/// <summary>
+/// Initializes the demo element when it is added to the scene.
+/// </summary>
+/// <param name="engine">
+/// The engine that owns the scene.
+/// </param>
 void DemoElement::Awake(Engine& engine) {
 }
 
+/// <summary>
+/// Sets the object color before drawing the demo element.
+/// </summary>
 void DemoElement::BeforeDraw() {
 	std::shared_ptr<Shader> shader = this->GetShader();
 	shader->SetVec3("uObjectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
+/// <summary>
+/// Rotates the demo element and handles speed input for the current frame.
+/// </summary>
 void DemoElement::Update() {
 	m_transform.rotation.y += (m_speed * Time::s_DeltaTime) * Input::IsKeyHeld(Key::V);
 
