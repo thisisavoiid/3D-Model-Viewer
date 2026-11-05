@@ -28,7 +28,15 @@ public:
 	/// Called just before drawing this render object. Override in derived classes.
 	/// </summary>
 	virtual void BeforeDraw() = 0;
+
+	/// <summary>
+	/// Called just after drawing this render object. Override in derived classes.
+	/// </summary>
 	virtual void AfterDraw();
+
+	/// <summary>
+	/// Called when this render object is initialized. Override in derived classes.
+	/// </summary>
 	virtual void Awake(Engine& engine) = 0;
 
 	Transform m_transform;

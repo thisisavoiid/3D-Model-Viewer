@@ -6,6 +6,27 @@
 #include <vector>
 #include <iostream>
 
+/// <summary>
+/// Loads six images and creates an OpenGL cubemap texture.
+/// </summary>
+/// <param name="right">
+/// The path to the right face image.
+/// </param>
+/// <param name="left">
+/// The path to the left face image.
+/// </param>
+/// <param name="top">
+/// The path to the top face image.
+/// </param>
+/// <param name="bottom">
+/// The path to the bottom face image.
+/// </param>
+/// <param name="front">
+/// The path to the front face image.
+/// </param>
+/// <param name="back">
+/// The path to the back face image.
+/// </param>
 CubeMap::CubeMap(
 	std::filesystem::path right, 
 	std::filesystem::path left, 
@@ -66,11 +87,17 @@ CubeMap::CubeMap(
 	}
 }
 
+/// <summary>
+/// Releases the OpenGL cubemap texture.
+/// </summary>
 CubeMap::~CubeMap()
 {
 	glDeleteTextures(1, &m_id);
 }
 
+/// <summary>
+/// Activates this cubemap texture for subsequent rendering calls.
+/// </summary>
 void CubeMap::Use()
 {
 	glActiveTexture(GL_TEXTURE0);

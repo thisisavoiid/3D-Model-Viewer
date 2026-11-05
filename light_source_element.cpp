@@ -31,6 +31,9 @@ void LightSourceElement::BeforeDraw()
 	shader->SetVec3("uLightColor", m_lightColor);
 }
 
+/// <summary>
+/// Performs light-specific cleanup after drawing.
+/// </summary>
 void LightSourceElement::AfterDraw()
 {
 }

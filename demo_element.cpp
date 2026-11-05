@@ -17,6 +17,9 @@
 void DemoElement::Awake(Engine& engine) {
 }
 
+/// <summary>
+/// Performs demo-specific cleanup after drawing.
+/// </summary>
 void DemoElement::AfterDraw()
 {
 }

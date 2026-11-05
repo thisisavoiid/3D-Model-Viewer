@@ -109,6 +109,9 @@ void CameraElement::BeforeDraw()
 {
 }
 
+/// <summary>
+/// Performs camera-specific cleanup after drawing.
+/// </summary>
 void CameraElement::AfterDraw()
 {
 }

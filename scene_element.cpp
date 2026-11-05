@@ -36,6 +36,9 @@ void SceneElement::SetTexture(std::shared_ptr<Texture> texture)
 	m_texture = texture;
 }
 
+/// <summary>
+/// Performs cleanup after drawing this scene element.
+/// </summary>
 void SceneElement::AfterDraw()
 {
 }
@@ -50,6 +53,15 @@ std::shared_ptr<Mesh> SceneElement::GetMesh() const {
 	return m_mesh;
 }
 
+/// <summary>
+/// Returns the view matrix used by this scene element.
+/// </summary>
+/// <param name="view">
+/// The view matrix supplied by the active camera.
+/// </param>
+/// <returns>
+/// The view matrix to use for rendering.
+/// </returns>
 glm::mat4 SceneElement::GetViewMatrix(const glm::mat4& view) const {
 	return view;
 }
