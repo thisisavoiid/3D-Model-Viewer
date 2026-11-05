@@ -45,7 +45,7 @@ compile_commands.json
 *.log
 
 # Compiled binaries and object files
-*.obj
+# *.obj
 *.o
 *.a
 *.lib
