@@ -22,7 +22,7 @@ const std::filesystem::path MODELS_DIR = "models";
 int main() {
 
 	auto window = std::make_shared<Window>(
-		"Test",
+		"3D Model Viewer - Made by AVØIID",
 		1200,
 		900
 	);
