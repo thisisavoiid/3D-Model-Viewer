@@ -7,6 +7,11 @@
 #include "mesh.hpp"
 #include "imgui_initializer.hpp"
 #include "skybox_element.hpp"
+#include <filesystem>
+
+const std::filesystem::path SHADER_DIR = "shaders";
+const std::filesystem::path TEXTURE_DIR = "textures";
+const std::filesystem::path MODELS_DIR = "models";
 
 /// <summary>
 /// Creates the application objects, starts the engine, and shuts down ImGui.
@@ -33,15 +38,15 @@ int main() {
 	);
 
 	auto lightSourceShader = std::make_shared<Shader>(
-		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.vert",
-		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/light/light.frag"
+		(SHADER_DIR / "light/light.vert"),
+		(SHADER_DIR / "light/light.frag")
 	);
 
 	lightSource->SetShader(lightSourceShader);
 	lightSource->SetMesh(
 		std::make_shared<Mesh>(
 			loader.LoadFromOBJ(
-				R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\models\cube.obj)"
+				(MODELS_DIR / "cube.obj")
 			)
 		)
 	);
@@ -51,17 +56,17 @@ int main() {
 
 	//SKYBOX
 	auto skybox = std::make_shared<SkyboxElement>(
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\right.png)",
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\left.png)",
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\top.png)",
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\bottom.png)",
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\front.png)",
-		R"(C:\Users\huber\Documents\Programmieren\C++\Hauptprojekte\3D Model-Viewer\textures\cubemap\back.png)"
+		(TEXTURE_DIR / "cubemap/right.png"),
+		(TEXTURE_DIR / "cubemap/left.png"),
+		(TEXTURE_DIR / "cubemap/top.png"),
+		(TEXTURE_DIR / "cubemap/bottom.png"),
+		(TEXTURE_DIR / "cubemap/front.png"),
+		(TEXTURE_DIR / "cubemap/back.png")
 	);
 
 	auto skyboxShader = std::make_shared<Shader>(
-		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/skybox/skybox.vert",
-		"C:/Users/huber/Documents/Programmieren/C++/Hauptprojekte/3D Model-Viewer/shaders/skybox/skybox.frag"
+		(SHADER_DIR / "skybox/skybox.vert"),
+		(SHADER_DIR / "skybox/skybox.frag")
 	);
 
 	skybox->SetShader(skyboxShader);
