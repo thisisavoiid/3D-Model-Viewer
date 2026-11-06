@@ -15,85 +15,95 @@
 /// </returns>
 MeshData ObjLoader::LoadFromOBJ(const std::filesystem::path& path)
 {
-	MeshData data;
+    MeshData data;
 
-	std::ifstream file(path);
-	std::string line;
+    std::ifstream file(path);
+    std::string line;
 
-	if (!file.is_open()) {
-		std::cerr << "File with path " << path << " could not be opened / read sucessfully!\n";
-		return data;
-	}
-	else {
-		std::cout << "File with path " << path << " opened successfully!\n";
-	}
+    if (!file.is_open()) {
+        std::cerr << "File with path " << path
+            << " could not be opened / read successfully!\n";
+        return data;
+    }
 
-	std::vector<glm::vec3> objRawVertices;
-	std::vector<glm::vec2> objRawUvs;
-	std::vector<glm::vec3> objRawNormals;
+    std::cout << "File with path " << path
+        << " opened successfully!\n";
 
-	std::vector<Vertex> objFinalVertices;
+    std::vector<glm::vec3> objRawVertices;
+    std::vector<glm::vec2> objRawUvs;
+    std::vector<glm::vec3> objRawNormals;
 
-	while (std::getline(file, line)) {
-		std::stringstream ss(line);
-		std::string type;
+    std::vector<Vertex> objFinalVertices;
 
-		ss >> type;
+    try {
+        while (std::getline(file, line)) {
+            std::stringstream ss(line);
+            std::string type;
 
-		if (type == "v") {
-			float x, y, z;
-			ss >> x >> y >> z;
-			objRawVertices.emplace_back(x, y, z);
-		}
-		else if (type == "vt") {
-			float x, y;
-			ss >> x >> y;
-			objRawUvs.emplace_back(x, y);
-		}
-		else if (type == "vn") {
-			float x, y, z;
-			ss >> x >> y >> z;
-			objRawNormals.emplace_back(x, y, z);
-		}
-		else if (type == "f") {
-			std::string vertex;
+            ss >> type;
 
-			while (ss >> vertex) {
-				std::stringstream vs;
-				vs << vertex;
+            if (type == "v") {
+                float x, y, z;
+                ss >> x >> y >> z;
+                objRawVertices.emplace_back(x, y, z);
+            }
+            else if (type == "vt") {
+                float x, y;
+                ss >> x >> y;
+                objRawUvs.emplace_back(x, y);
+            }
+            else if (type == "vn") {
+                float x, y, z;
+                ss >> x >> y >> z;
+                objRawNormals.emplace_back(x, y, z);
+            }
+            else if (type == "f") {
+                std::string vertex;
 
-				char slash;
+                while (ss >> vertex) {
+                    std::stringstream vs(vertex);
 
-				int vIdx, vtIdx, vnIdx;
-				vs >> vIdx >> slash >> vtIdx >> slash >> vnIdx;
+                    char slash;
+                    int vIdx = 0, vtIdx = 0, vnIdx = 0;
 
-				vIdx--;
-				vtIdx--;
-				vnIdx--;
+                    if (!(vs >> vIdx >> slash) || slash != '/' ||
+                        !(vs >> vtIdx >> slash) || slash != '/' ||
+                        !(vs >> vnIdx)) {
+                        throw std::runtime_error("Invalid face format: " + vertex);
+                    }
 
-				objFinalVertices.emplace_back(
-					objRawVertices[vIdx],
-					objRawUvs[vtIdx],
-					objRawNormals[vnIdx]
-				);
-			}
-		}
-	}
+                    vIdx--;
+                    vtIdx--;
+                    vnIdx--;
 
-	for (int i = 0; i < objFinalVertices.size(); i++) {
-		data.vertices.push_back(objFinalVertices[i].position.x);
-		data.vertices.push_back(objFinalVertices[i].position.y);
-		data.vertices.push_back(objFinalVertices[i].position.z);
+                    objFinalVertices.emplace_back(
+                        objRawVertices.at(vIdx),
+                        objRawUvs.at(vtIdx),
+                        objRawNormals.at(vnIdx)
+                    );
+                }
+            }
+        }
 
-		data.indices.push_back(i);
+        for (int i = 0; i < objFinalVertices.size(); i++) {
+            data.vertices.push_back(objFinalVertices[i].position.x);
+            data.vertices.push_back(objFinalVertices[i].position.y);
+            data.vertices.push_back(objFinalVertices[i].position.z);
 
-		data.uvs.push_back(objFinalVertices[i].uvCoords.x);
-		data.uvs.push_back(objFinalVertices[i].uvCoords.y);
+            data.indices.push_back(i);
 
-		data.normals.push_back(objFinalVertices[i].normal.x);
-		data.normals.push_back(objFinalVertices[i].normal.y);
-		data.normals.push_back(objFinalVertices[i].normal.z);
-	}
+            data.uvs.push_back(objFinalVertices[i].uvCoords.x);
+            data.uvs.push_back(objFinalVertices[i].uvCoords.y);
 
-    return data;
+            data.normals.push_back(objFinalVertices[i].normal.x);
+            data.normals.push_back(objFinalVertices[i].normal.y);
+            data.normals.push_back(objFinalVertices[i].normal.z);
+        }
+
+        return data;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "OBJ Loading Error: " << e.what() << '\n';
+        return MeshData{};
+    }
 }

@@ -151,6 +151,7 @@ void Engine::Run()
 {
 	auto glfwWindowInstance = m_window->GetGlfwWindowInstance();
 	m_lastUpdate = glfwGetTime();
+
 	glEnable(GL_DEPTH_TEST);
 
 	ImGuiIO& io = ImGui::GetIO();
